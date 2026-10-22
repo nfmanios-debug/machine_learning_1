@@ -1,0 +1,10 @@
+{
+  "exito": true,
+  "nucleo_nuevo": true,
+  "duracion_segundos": 114.35,
+  "fin_utc": "2026-10-22T03:01:40.916935+00:00",
+  "error": null,
+  "celdas_codigo": 8,
+  "celdas_ejecutadas": 8,
+  "sha256_notebook": "07429040bb9c53ce84c6cd5707f69c8fe0f99094f8782ea51b295ddb872fb09b"
+}
