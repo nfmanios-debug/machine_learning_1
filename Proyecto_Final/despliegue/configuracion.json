@@ -1,5 +1,9 @@
 {
-  "streamlit_url": null,
-  "github_pages_url": null,
-  "estado": "Validación local y publicación de código; activación de hosting por verificar"
+  "streamlit_url": "https://ean-alcohol-simulado.streamlit.app/",
+  "github_pages_url": "https://nfmanios-debug.github.io/machine_learning_1/Proyecto_Final/despliegue/",
+  "estado": "Publicado: Streamlit Community Cloud y GitHub Pages",
+  "python_cloud": "3.12",
+  "rama": "main",
+  "entrada": "Proyecto_Final/despliegue/app.py",
+  "etiqueta_simulada": true
 }

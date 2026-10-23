@@ -10,8 +10,9 @@ en JavaScript, por lo que funciona también sin internet. No ejecuta celdas Pyth
 
 - Presentación: abrir **index.html** con Chrome, Edge o Firefox. No requiere instalación.
 - Notebook con código, tablas y gráficos guardados: **notebook.html**.
-- La URL pública de Streamlit y el estado de publicación se registran en **configuracion.json**.
-- GitHub Pages, una vez activado desde main / raíz:
+- Aplicación pública: https://ean-alcohol-simulado.streamlit.app/
+- Estado y URLs de publicación: **configuracion.json**.
+- Presentación pública en GitHub Pages:
   https://nfmanios-debug.github.io/machine_learning_1/Proyecto_Final/despliegue/
 
 En el HTML, usar las flechas inferiores o el selector de sección. Los botones de gráficos

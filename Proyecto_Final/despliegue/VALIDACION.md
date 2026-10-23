@@ -42,3 +42,11 @@ La validación local y la publicación del código son distintas de activar un s
 El estado y las URLs de alojamiento se registran en configuracion.json.
 La activación de Streamlit requiere el acceso del titular a Community Cloud.
 El resultado académico sigue siendo simulado: ninguna prueba técnica demuestra validez clínica.
+
+## Verificación pública
+
+- GitHub Pages activo en https://nfmanios-debug.github.io/machine_learning_1/Proyecto_Final/despliegue/
+- Streamlit activo en https://ean-alcohol-simulado.streamlit.app/ con Python 3.12.
+- En ambas URLs se ejecutó el escenario ficticio A: 90,74 % (HTML redondea a 90,7 %).
+- Capturas: evidencias/html_publico.jpg y evidencias/streamlit_publico.jpg.
+- La cuenta del titular completó inicio de sesión y permisos; no se almacenaron credenciales en Git.
