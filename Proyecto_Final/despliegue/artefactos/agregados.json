@@ -1,0 +1,160 @@
+{
+  "ANO": [
+    {
+      "categoria": "2015",
+      "registros": 11601
+    },
+    {
+      "categoria": "2016",
+      "registros": 8136
+    },
+    {
+      "categoria": "2017",
+      "registros": 4922
+    },
+    {
+      "categoria": "2018",
+      "registros": 4763
+    },
+    {
+      "categoria": "2019",
+      "registros": 9664
+    },
+    {
+      "categoria": "2020",
+      "registros": 6774
+    },
+    {
+      "categoria": "2021",
+      "registros": 9820
+    },
+    {
+      "categoria": "2022",
+      "registros": 9806
+    },
+    {
+      "categoria": "2023",
+      "registros": 8982
+    },
+    {
+      "categoria": "2024",
+      "registros": 10446
+    },
+    {
+      "categoria": "2025",
+      "registros": 11474
+    },
+    {
+      "categoria": "2026",
+      "registros": 5112
+    }
+  ],
+  "NOMBRELOCALIDADRESIDENCIA": [
+    {
+      "categoria": "Antonio Nariño",
+      "registros": 1397
+    },
+    {
+      "categoria": "Barrios Unidos",
+      "registros": 1789
+    },
+    {
+      "categoria": "Bosa",
+      "registros": 9083
+    },
+    {
+      "categoria": "Candelaria",
+      "registros": 1625
+    },
+    {
+      "categoria": "Chapinero",
+      "registros": 2617
+    },
+    {
+      "categoria": "Ciudad Bolívar",
+      "registros": 7613
+    },
+    {
+      "categoria": "Engativá",
+      "registros": 6880
+    },
+    {
+      "categoria": "Fontibón",
+      "registros": 4715
+    },
+    {
+      "categoria": "Kennedy",
+      "registros": 9825
+    },
+    {
+      "categoria": "Mártires",
+      "registros": 6693
+    },
+    {
+      "categoria": "N.A.",
+      "registros": 442
+    },
+    {
+      "categoria": "Puente Aranda",
+      "registros": 5582
+    },
+    {
+      "categoria": "Rafael Uribe",
+      "registros": 3984
+    },
+    {
+      "categoria": "San Cristóbal",
+      "registros": 5272
+    },
+    {
+      "categoria": "Santa Fe",
+      "registros": 5083
+    },
+    {
+      "categoria": "Sin dato",
+      "registros": 4569
+    },
+    {
+      "categoria": "Suba",
+      "registros": 8686
+    },
+    {
+      "categoria": "Sumapaz",
+      "registros": 10
+    },
+    {
+      "categoria": "Teusaquillo",
+      "registros": 2935
+    },
+    {
+      "categoria": "Tunjuelito",
+      "registros": 3393
+    },
+    {
+      "categoria": "Usaquén",
+      "registros": 3691
+    },
+    {
+      "categoria": "Usme",
+      "registros": 5616
+    }
+  ],
+  "CURSO_DE_VIDA": [
+    {
+      "categoria": "Adolescencia",
+      "registros": 18084
+    },
+    {
+      "categoria": "Adultez",
+      "registros": 38817
+    },
+    {
+      "categoria": "Juventud",
+      "registros": 41058
+    },
+    {
+      "categoria": "Vejez",
+      "registros": 3541
+    }
+  ]
+}

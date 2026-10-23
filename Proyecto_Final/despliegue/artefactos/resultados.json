@@ -1,0 +1,128 @@
+{
+  "semilla": 2026,
+  "sha256_datos": "468301ee4e637df11eb825136b9abe03300a947d0ce6bb2bfba48356c5cd5d85",
+  "versiones": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "nbformat": "5.11.1",
+    "nbclient": "0.11.0"
+  },
+  "etiqueta_simulada": true,
+  "filas_crudas": 101500,
+  "columnas_crudas": 21,
+  "n_desarrollo": 60900,
+  "n_umbral": 20300,
+  "n_test": 20300,
+  "positivos_desarrollo": 39173,
+  "positivos_umbral": 13058,
+  "positivos_test": 13058,
+  "columnas_transformadas": 185,
+  "modelo_final": "Logistica",
+  "parametros": {
+    "modelo__C": 0.1
+  },
+  "umbral_final": 0.13,
+  "costo_FN": 5.0,
+  "costo_FP": 1.0,
+  "test": {
+    "umbral": 0.13,
+    "n": 20300,
+    "TN": 23,
+    "FP": 7219,
+    "FN": 3,
+    "TP": 13055,
+    "costo": 0.35635467980295565,
+    "sensibilidad": 0.9997702557818962,
+    "precision": 0.6439281838808326,
+    "especificidad": 0.0031759182546257938,
+    "f1": 0.7833313332533302,
+    "accuracy": 0.6442364532019704,
+    "auc": 0.7614397044198828,
+    "pr_auc": 0.8497332703407117,
+    "brier": 0.18619153398429628,
+    "fraccion_alertas": 0.9987192118226601,
+    "IC95_costo": [
+      0.35004433497536946,
+      0.36295935960591136
+    ],
+    "IC95_ahorro_vs_dummy": [
+      -0.000541871921182266,
+      0.001232758620689654
+    ]
+  },
+  "baseline_test": {
+    "umbral": 0.16666666666666666,
+    "n": 20300,
+    "TN": 0,
+    "FP": 7242,
+    "FN": 0,
+    "TP": 13058,
+    "costo": 0.35674876847290643,
+    "sensibilidad": 1.0,
+    "precision": 0.6432512315270936,
+    "especificidad": 0.0,
+    "f1": 0.7829006535163978,
+    "accuracy": 0.6432512315270936,
+    "auc": 0.5,
+    "pr_auc": 0.6432512315270936,
+    "brier": 0.22947908493559932,
+    "fraccion_alertas": 1.0
+  },
+  "comparacion_cv": [
+    {
+      "modelo": "Logistica",
+      "costo_cv": 0.3542692939244664,
+      "sd_costo": 0.0015105393672392602,
+      "var_costo": 2.281729179979585e-06,
+      "auc_cv": 0.75765363373238,
+      "sd_auc": 0.0017684761009407884,
+      "pr_auc_cv": 0.8465459435163087,
+      "costo_train": 0.35417487684729065,
+      "complejidad": 1,
+      "parametros": "{\"modelo__C\": 0.1}",
+      "brecha_costo": 9.441707717572356e-05
+    },
+    {
+      "modelo": "Arbol",
+      "costo_cv": 0.35474548440065684,
+      "sd_costo": 0.002138117678675459,
+      "var_costo": 4.571547207864533e-06,
+      "auc_cv": 0.7547564482648271,
+      "sd_auc": 0.00185398390104,
+      "pr_auc_cv": 0.8397226123143128,
+      "costo_train": 0.35393678160919545,
+      "complejidad": 2,
+      "parametros": "{\"modelo__max_depth\": 8, \"modelo__min_samples_leaf\": 100}",
+      "brecha_costo": 0.0008087027914613909
+    },
+    {
+      "modelo": "Dummy",
+      "costo_cv": 0.3567651888341543,
+      "sd_costo": 4.496901128942549e-05,
+      "var_costo": 2.0222119763484773e-09,
+      "auc_cv": 0.5,
+      "sd_auc": 0.0,
+      "pr_auc_cv": 0.6432348111658456,
+      "costo_train": 0.35676518883415437,
+      "complejidad": 0,
+      "parametros": "{}",
+      "brecha_costo": -5.551115123125783e-17
+    },
+    {
+      "modelo": "Bosque",
+      "costo_cv": 0.3567651888341543,
+      "sd_costo": 4.496901128942549e-05,
+      "var_costo": 2.0222119763484773e-09,
+      "auc_cv": 0.7506566741065025,
+      "sd_auc": 0.0023082625745517956,
+      "pr_auc_cv": 0.8402545948493735,
+      "costo_train": 0.35676518883415437,
+      "complejidad": 3,
+      "parametros": "{\"modelo__max_depth\": 6}",
+      "brecha_costo": -5.551115123125783e-17
+    }
+  ]
+}

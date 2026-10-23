@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alcohol simulado · Presentación EAN</title>
+<meta name="description" content="Demostración académica CRISP-DM. Alcohol es una etiqueta simulada.">
+<style>
+/* Diseño sin fuentes, bibliotecas ni servicios externos: funciona también sin conexión. */
+:root{--ink:#132f3b;--teal:#237f73;--lime:#d2ed9f;--paper:#f5f6f0;--muted:#526870;--line:#d6dfd8;--warm:#a64e21}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 Arial,sans-serif}
+button,input,select{font:inherit}button,a.button{cursor:pointer;border:1px solid var(--ink);padding:11px 18px;background:var(--ink);color:white;border-radius:7px;text-decoration:none;display:inline-block;font-weight:600}
+button:hover,a.button:hover{background:var(--teal)}button:disabled{opacity:.35;cursor:default}
+button.secondary,a.secondary{background:transparent;color:var(--ink)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b57c22;outline-offset:3px}
+a{color:var(--teal)}header{padding:17px 4vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:14px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:13px}.brand span{font-weight:400;letter-spacing:0;margin-left:15px}
+.badge{font-size:12px;background:#e5eddf;border:1px solid #bccdb4;padding:6px 12px;border-radius:20px}
+.notice{padding:9px 4vw;background:#e9efe3;font-size:13px;border-bottom:1px solid #cfdcc8}
+main{max-width:1400px;margin:auto}.slide{padding:35px 5vw 100px;min-height:calc(100vh - 125px)}.slide[hidden]{display:none}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--teal);margin:0 0 17px}
+h1,h2,h3,p{margin-top:0}h1{font-size:clamp(42px,5.7vw,82px);letter-spacing:-.055em;line-height:1.02;margin-bottom:26px;font-weight:700}
+h2{font-size:clamp(31px,3.6vw,50px);line-height:1.08;letter-spacing:-.04em;margin-bottom:20px}h3{font-size:22px;line-height:1.25}
+.lead{font-size:20px;color:var(--muted);max-width:820px}.small{font-size:13px;color:var(--muted)}.caption{font-size:14px;color:var(--muted);margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:start}.hero{grid-template-columns:1.15fr .85fr;align-items:center;gap:55px}
+.visual{background:var(--ink);color:#f5f6f0;min-height:365px;padding:34px;border-radius:8px;position:relative;overflow:hidden}.visual h3{font-size:25px}.visual .small{color:#bad1d1}.visual svg{width:100%;height:185px}
+.number{font-size:62px;line-height:1.1;letter-spacing:-.05em;font-weight:700}.accent{color:var(--lime)}
+.rule{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:26px 0}.stat{border-top:3px solid var(--teal);padding-top:12px}.stat b{display:block;font-size:37px;letter-spacing:-.04em}.stat span{font-size:14px;color:var(--muted)}
+.table-wrap{overflow:auto;max-height:370px;border:1px solid var(--line);border-radius:7px;background:white}
+table{border-collapse:collapse;width:100%;font-size:14px;text-align:left}th,td{padding:12px 14px;border-bottom:1px solid #e1e7e2;white-space:nowrap}
+th{position:sticky;top:0;background:#e8efe9;color:var(--ink);font-weight:700}tbody tr:hover{background:#f1f6ef}
+.panel{background:white;border:1px solid var(--line);padding:22px;border-radius:8px}
+.warning{border-left:4px solid var(--warm);padding:15px 20px;background:#f7eadc;margin:20px 0}
+.flow{display:flex;margin:30px 0;gap:4px}.flow div{padding:24px;background:var(--ink);color:white;flex:1}.flow div:first-child{flex:3;background:var(--teal)}.flow b{display:block;font-size:40px;letter-spacing:-.04em}.flow span{font-size:14px}
+.steps{list-style:none;padding:0;counter-reset:step}.steps li{counter-increment:step;border-top:1px solid var(--line);padding:16px 0 16px 40px;position:relative}.steps li:before{content:"0" counter(step);position:absolute;left:0;color:var(--teal);font-weight:700}
+.chart{min-height:230px;padding:14px 0}.chart svg{width:100%;display:block}.empty{border:1px dashed #a8bdb4;padding:35px;text-align:center;color:var(--muted);border-radius:6px}
+.range-label{display:flex;justify-content:space-between;font-weight:700}input[type=range]{width:100%;accent-color:var(--teal);margin:18px 0}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}select,input[type=url]{width:100%;padding:9px;border:1px solid #9fb5ac;border-radius:5px;background:white;color:var(--ink)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}.fields label{font-size:13px}
+details{margin:15px 0}summary{cursor:pointer;font-weight:600;padding:8px 0}pre{white-space:pre-wrap;font-size:12px;max-height:240px;overflow:auto;background:#eaf0eb;padding:14px}
+.result{background:var(--ink);color:white;padding:28px;border-radius:8px}.result .small{color:#c4d5d6}.result b{display:block;font-size:50px;letter-spacing:-.04em}.result .class{color:var(--lime);font-size:23px;margin:12px 0}
+meter{width:100%;height:25px}.confusion{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:20px 0}.confusion div{padding:20px;background:#e0ebe7}.confusion b{display:block;font-size:32px}.confusion .err{background:#f4e3d4}
+footer{position:fixed;bottom:0;width:100%;background:rgba(245,246,240,.97);border-top:1px solid var(--line);padding:11px 4vw;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:4}.nav{display:flex;gap:9px;align-items:center}.nav button{padding:8px 14px}.counter{font-variant-numeric:tabular-nums;font-size:13px;min-width:58px;text-align:center}.progress{position:fixed;bottom:0;left:0;height:3px;background:var(--teal);transition:width .2s}
+#jump{width:auto;max-width:200px;font-size:13px}#status{font-size:12px;color:var(--muted)}.hidden{display:none}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr;gap:20px}.slide{padding:24px 6vw 100px}.visual{min-height:280px}.brand span{display:none}.stats{gap:12px}.stat b{font-size:26px}.stat span{font-size:12px}.flow div{padding:12px}.flow b{font-size:28px}.flow span{font-size:12px}.fields{grid-template-columns:1fr 1fr}footer{padding:10px 4vw}.footer-note{display:none}header{padding:14px 5vw}.notice{padding:8px 5vw}.badge{font-size:10px}#jump{max-width:125px}.number{font-size:50px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{header,footer,.notice,.actions,.progress,button{display:none!important}.slide[hidden],.slide{display:block!important;min-height:0;page-break-after:always;padding:20px}.grid,.hero{grid-template-columns:1fr 1fr}.table-wrap{max-height:none;overflow:visible}.chart{min-height:0}body{font-size:12px}h1{font-size:45px}h2{font-size:30px}.small{font-size:11px}}
+</style>
+</head>
+<body>
+<header><div class="brand">EAN <span>Machine Learning I / Proyecto Final Integrador</span></div><span class="badge">CRISP-DM · SEMILLA 2026</span></header>
+<div class="notice"><strong>Alcohol es una etiqueta simulada.</strong> Prototipo académico; no es diagnóstico ni riesgo clínico validado.</div>
+<main>
+<section class="slide" id="s1" data-title="Propósito">
+<p class="kicker">01 / Comprensión del negocio</p>
+<div class="grid hero"><div><h1>Explorar la<br>clasificación.<br><span style="color:var(--teal)">Reconocer<br>sus límites.</span></h1>
+<p class="lead">Un experimento reproducible sobre registros de consumo de sustancias en Bogotá.</p>
+<p class="small">Tema del proyecto: identificación temprana del consumo perjudicial de alcohol. El objetivo disponible es simulado.</p>
+<div class="actions"><button data-go="6">▶ Probar el modelo</button><button class="secondary" data-go="1">Iniciar recorrido →</button></div></div>
+<div class="visual"><p class="kicker accent">LA PREGUNTA</p><h3>¿Cuándo una clasificación<br>ayuda a decidir?</h3>
+<svg viewBox="0 0 420 180" role="img" aria-label="Esquema conceptual de una frontera de decisión, no datos observados"><path d="M20 145 H400 M20 145 V15" stroke="#799ca5" fill="none"/><path d="M25 140 C130 140 130 35 225 35 S320 20 395 20" stroke="#d2ed9f" stroke-width="4" fill="none"/><line x1="185" y1="15" x2="185" y2="145" stroke="#73c5b8" stroke-dasharray="5 5"/><text x="199" y="126" fill="#c5d7d9" font-size="14">decisión ≠ probabilidad</text></svg>
+<p class="small">La demostración conecta datos, validación y costo del error. Una AUC aceptable no garantiza utilidad operativa.</p></div></div>
+<p class="small rule">Oscar Andrés Ramos Villanueva · Alvaro José Cabezas Jiménez · Nelsón Fabián Manios Ascencio<br>Universidad EAN · Sustentación académica</p>
+</section>
+<section class="slide" id="s2" data-title="Datos" hidden>
+<p class="kicker">02 / Comprensión de los datos</p><h2>Registros reales.<br>Etiqueta construida.</h2>
+<div class="stats"><div class="stat"><b>101.500</b><span>filas del CSV versionado</span></div><div class="stat"><b>21 → 14</b><span>columnas crudas → predictores</span></div><div class="stat"><b>185</b><span>variables tras la codificación</span></div></div>
+<div class="grid"><div><p>La fuente es <strong>SDS / VESPA</strong>. Alcohol se genera con reglas y aleatoriedad; no está observado en el archivo original.</p>
+<label for="group">Explorar registros por</label><select id="group"><option value="ANO">Año</option><option value="NOMBRELOCALIDADRESIDENCIA">Localidad</option><option value="CURSO_DE_VIDA">Curso de vida</option></select>
+<div class="actions"><button id="play-data">▶ Generar gráfico</button><button id="download-data" class="secondary">Descargar tabla</button></div>
+<div class="table-wrap" id="data-table"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Año</th>
+      <th>Filas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2015</td>
+      <td>11601</td>
+    </tr>
+    <tr>
+      <td>2016</td>
+      <td>8136</td>
+    </tr>
+    <tr>
+      <td>2017</td>
+      <td>4922</td>
+    </tr>
+    <tr>
+      <td>2018</td>
+      <td>4763</td>
+    </tr>
+    <tr>
+      <td>2019</td>
+      <td>9664</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>6774</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>9820</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>9806</td>
+    </tr>
+    <tr>
+      <td>2023</td>
+      <td>8982</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>10446</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>11474</td>
+    </tr>
+    <tr>
+      <td>2026</td>
+      <td>5112</td>
+    </tr>
+  </tbody>
+</table></div></div><div><div id="data-chart" class="chart"><div class="empty">Pulsa «Generar gráfico» para visualizar la tabla.</div></div>
+<p class="caption">Filas ≠ personas únicas. La cobertura de reportes no mide prevalencia ni riesgo poblacional. El año 2026 puede estar incompleto.</p></div></div>
+</section>
+<section class="slide" id="s3" data-title="Experimento" hidden>
+<p class="kicker">03 / Preparación y modelado</p><h2>Separar antes de aprender.</h2>
+<p class="lead">El conjunto de prueba queda fuera del ajuste, la selección del modelo y la selección del umbral.</p>
+<div class="flow"><div><b>60 %</b><span>60.900 filas / desarrollo<br>GridSearchCV · 5 pliegues</span></div><div><b>20 %</b><span>20.300 / validación<br>elección del umbral</span></div><div><b>20 %</b><span>20.300 / prueba<br>evaluación final</span></div></div>
+<div class="grid"><ol class="steps"><li>Normalizar y representar faltantes dentro del Pipeline.</li><li>Aprender categorías one-hot solo con entrenamiento.</li><li>Comparar baseline y tres familias bajo los mismos folds.</li></ol>
+<div class="panel"><h3>Un costo explícito</h3><p style="font-size:24px">Costo = (5 FN + FP) / n</p><p class="small">Alcohol = 1. La relación 5:1 es un supuesto académico, no una tarifa ni una prioridad oficial.</p><p class="small">La versión corregida conserva las tres filas intersexuales y elimina la imputación aleatoria. Por eso no replica las 101.497 filas / 176 columnas del Colab.</p></div></div>
+<details><summary>Ver código del Pipeline</summary><pre>&quot;&quot;&quot;Transformaciones del cuaderno corregido; Alcohol es una etiqueta simulada.&quot;&quot;&quot;
+import numpy as np
+import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder
+
+SEMILLA = 2026
+CATEGORICAS = [&#x27;SEXO&#x27;, &#x27;NOMBRELOCALIDADRESIDENCIA&#x27;, &#x27;NOMBREUPZ&#x27;, &#x27;CURSO_DE_VIDA&#x27;,
+               &#x27;NIVELEDUCATIVO&#x27;, &#x27;PERTENENCIAETNICA&#x27;, &#x27;ESTADOCIVIL&#x27;, &#x27;TIPOASEGURAMIENTO&#x27;]
+BINARIAS = [&#x27;SITIOHABITUALCONSUMO_&#x27; + sitio for sitio in
+            [&#x27;VIVIENDA&#x27;, &#x27;PARQUE&#x27;, &#x27;EST_EDUCATIVO&#x27;, &#x27;BARES_TABERNAS&#x27;, &#x27;VIA_PUBLICA&#x27;, &#x27;CASA_AMIGOS&#x27;]]
+PREDICTORAS = CATEGORICAS + BINARIAS
+MARCADORES = {&#x27;sin dato&#x27;, &#x27;sin informacion&#x27;, &#x27;n.a.&#x27;, &#x27;upz sin asignar&#x27;}
+AVISO = &#x27;Alcohol es una etiqueta simulada. Prototipo académico; no es un diagnóstico ni una estimación validada de riesgo clínico.&#x27;
+NOMBRES = dict(zip(PREDICTORAS, [&#x27;Sexo registrado&#x27;, &#x27;Localidad&#x27;, &#x27;UPZ&#x27;, &#x27;Curso de vida&#x27;,
+    &#x27;Nivel educativo&#x27;, &#x27;Pertenencia étnica&#x27;, &#x27;Estado civil&#x27;, &#x27;Aseguramiento&#x27;,
+    &#x27;Vivienda&#x27;, &#x27;Parque&#x27;, &#x27;Establecimiento educativo&#x27;, &#x27;Bares / tabernas&#x27;, &#x27;Vía pública&#x27;, &#x27;Casa de amigos&#x27;]))
+
+
+def normalizar_predictoras(frame):
+    &quot;&quot;&quot;Conservar filas y normalizar sin aprender estadísticas de los datos recibidos.&quot;&quot;&quot;
+    salida = frame[PREDICTORAS].copy()
+    for col in CATEGORICAS:
+        texto = salida[col].astype(&#x27;string&#x27;).str.strip()
+        texto = texto.mask(texto.str.lower().isin(MARCADORES))
+        salida[col] = texto.astype(object).where(texto.notna(), np.nan)
+    for col in BINARIAS:
+        salida[col] = salida[col].astype(&#x27;string&#x27;).str.strip().str.upper().map({&#x27;SI&#x27;: 1.0, &#x27;NO&#x27;: 0.0})
+    return salida
+
+
+def crear_pipeline():
+    &quot;&quot;&quot;Reconstruir la configuración elegida en CV, sin volver a seleccionar modelos.&quot;&quot;&quot;
+    categorias = Pipeline([
+        (&#x27;faltantes&#x27;, SimpleImputer(strategy=&#x27;constant&#x27;, fill_value=&#x27;Desconocido&#x27;)),
+        (&#x27;onehot&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;, sparse_output=True))])
+    sitios = Pipeline([(&#x27;faltantes&#x27;, SimpleImputer(strategy=&#x27;constant&#x27;, fill_value=-1.0))])
+    columnas = ColumnTransformer([(&#x27;categorias&#x27;, categorias, CATEGORICAS),
+                                  (&#x27;sitios&#x27;, sitios, BINARIAS)], sparse_threshold=1.0)
+    return Pipeline([(&#x27;normalizar&#x27;, FunctionTransformer(normalizar_predictoras)),
+                     (&#x27;columnas&#x27;, columnas),
+                     (&#x27;modelo&#x27;, LogisticRegression(C=0.1, max_iter=1000, random_state=SEMILLA))])
+
+
+def simular_etiqueta(df):
+    &quot;&quot;&quot;Reproducir exactamente el generador académico de cuaderno_PFI, semilla 2026.&quot;&quot;&quot;
+    prob = np.full(len(df), 0.70)
+    for col, delta in zip(BINARIAS, [0.10, -0.25, -0.20, 0.15, -0.10, 0.10]):
+        prob += np.where(df[col].eq(&#x27;SI&#x27;), delta, 0.0)
+    prob += np.where(df.CURSO_DE_VIDA.isin([&#x27;Adultez&#x27;, &#x27;Vejez&#x27;]), 0.10, 0.0)
+    prob -= np.where(df.CURSO_DE_VIDA.isin([&#x27;Adolescencia&#x27;, &#x27;Juventud&#x27;]), 0.15, 0.0)
+    prob += np.where(df.SEXO.eq(&#x27;Hombre&#x27;), 0.05, 0.0)
+    return pd.Series((np.random.default_rng(SEMILLA).uniform(size=len(df)) &lt;=
+                      np.clip(prob, 0.05, 0.95)).astype(int), index=df.index, name=&#x27;Alcohol&#x27;)
+
+
+def probabilidad_portable(ejemplo, exportado):
+    &quot;&quot;&quot;Evaluar la regresión exportada; sirve para comprobar la versión HTML.&quot;&quot;&quot;
+    z = exportado[&#x27;intercepto&#x27;]
+    for columna, pesos in exportado[&#x27;pesos_categoricos&#x27;].items():
+        valor = ejemplo.get(columna)
+        texto = &#x27;&#x27; if valor is None else str(valor).strip()
+        if valor is None or texto.lower() in MARCADORES:
+            texto = &#x27;Desconocido&#x27;
+        z += pesos.get(texto, 0.0)  # handle_unknown=&#x27;ignore&#x27; produce ceros.
+    for columna, peso in exportado[&#x27;pesos_binarios&#x27;].items():
+        valor = str(ejemplo.get(columna, &#x27;&#x27;)).strip().upper()
+        z += peso * {&#x27;SI&#x27;: 1.0, &#x27;NO&#x27;: 0.0}.get(valor, -1.0)
+    return float(1 / (1 + np.exp(-z)))
+</pre></details>
+</section>
+<section class="slide" id="s4" data-title="Modelos" hidden>
+<p class="kicker">04 / Comparación experimental</p><h2>Cuatro referencias.<br>Una misma evaluación.</h2><p class="lead">La Regresión Logística obtiene el menor costo medio de validación cruzada bajo el supuesto fijado.</p>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Modelo</th>
+      <th>Costo medio CV</th>
+      <th>Desv. costo</th>
+      <th>Varianza costo</th>
+      <th>ROC-AUC CV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logistica</td>
+      <td>0.354269</td>
+      <td>0.001511</td>
+      <td>2.282e-06</td>
+      <td>0.757654</td>
+    </tr>
+    <tr>
+      <td>Arbol</td>
+      <td>0.354745</td>
+      <td>0.002138</td>
+      <td>4.572e-06</td>
+      <td>0.754756</td>
+    </tr>
+    <tr>
+      <td>Dummy</td>
+      <td>0.356765</td>
+      <td>0.000045</td>
+      <td>2.022e-09</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <td>Bosque</td>
+      <td>0.356765</td>
+      <td>0.000045</td>
+      <td>2.022e-09</td>
+      <td>0.750657</td>
+    </tr>
+  </tbody>
+</table></div>
+<div class="actions"><button id="play-models">▶ Comparar modelos</button><button id="download-models" class="secondary">Descargar tabla</button></div>
+<div id="models-chart" class="chart"><div class="empty">Pulsa «Comparar modelos» para mostrar la media y la desviación del costo.</div></div>
+<p class="caption">Media y desviación muestral entre cinco pliegues. La CV participa en la selección; la evaluación independiente se informa en prueba.</p>
+</section>
+<section class="slide" id="s5" data-title="Umbral" hidden>
+<p class="kicker">05 / Evaluación de la decisión</p><h2>El umbral cambia<br>los errores y las alertas.</h2>
+<div class="grid"><div><p>Explora resultados precalculados en la reserva de validación. Esta interacción no vuelve a seleccionar el modelo ni consulta prueba.</p>
+<label class="range-label" for="threshold">Umbral exploratorio <output id="threshold-value">0,13</output></label>
+<input id="threshold" type="range" min="0" max="1" step="0.01" value="0.13">
+<div class="stats"><div class="stat"><b id="val-recall">—</b><span>sensibilidad</span></div><div class="stat"><b id="val-alerts">—</b><span>clasificados Alcohol</span></div><div class="stat"><b id="val-cost">—</b><span>costo medio</span></div></div>
+<div class="warning">El umbral oficial permanece en <strong>0,13</strong>. El de 0,62 propuesto en Colab se eligió usando prueba y no se utiliza como resultado validado.</div></div>
+<div><div id="threshold-chart" class="chart"></div><div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Umbral</th>
+      <th>Costo</th>
+      <th>Sensibilidad</th>
+      <th>Fracción alertas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.130000</td>
+      <td>0.356010</td>
+      <td>0.999923</td>
+      <td>0.998966</td>
+    </tr>
+    <tr>
+      <td>0.300000</td>
+      <td>0.398571</td>
+      <td>0.972890</td>
+      <td>0.937192</td>
+    </tr>
+    <tr>
+      <td>0.500000</td>
+      <td>0.683498</td>
+      <td>0.845688</td>
+      <td>0.731182</td>
+    </tr>
+    <tr>
+      <td>0.620000</td>
+      <td>1.036700</td>
+      <td>0.715577</td>
+      <td>0.582217</td>
+    </tr>
+    <tr>
+      <td>0.800000</td>
+      <td>1.897438</td>
+      <td>0.420738</td>
+      <td>0.305025</td>
+    </tr>
+  </tbody>
+</table></div><p class="caption">Todas las cifras de esta pantalla corresponden a validación.</p></div></div>
+</section>
+<section class="slide" id="s6" data-title="Prueba final" hidden>
+<p class="kicker">06 / Evaluación final reservada</p><h2>Discriminar no equivale<br>a priorizar.</h2>
+<div class="stats"><div class="stat"><b>0,7614</b><span>ROC-AUC en prueba</span></div><div class="stat"><b>99,87%</b><span>registros clasificados como Alcohol</span></div><div class="stat"><b>0,13</b><span>umbral fijado antes de prueba</span></div></div>
+<div class="grid"><div><h3>Prueba · matriz de confusión</h3><div class="confusion">
+<div><b>23</b>Verdaderos negativos</div><div class="err"><b>7.219</b>Falsos positivos</div>
+<div class="err"><b>3</b>Falsos negativos</div><div><b>13.055</b>Verdaderos positivos</div></div>
+<p class="small">Clase positiva: Alcohol simulado. Son registros, no diagnósticos ni pacientes rescatados.</p></div>
+<div><div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Modelo</th>
+      <th>Costo</th>
+      <th>Sensibilidad</th>
+      <th>Precisión</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Logística</td>
+      <td>0.356355</td>
+      <td>0.999770</td>
+      <td>0.643928</td>
+    </tr>
+    <tr>
+      <td>Dummy</td>
+      <td>0.356749</td>
+      <td>1.000000</td>
+      <td>0.643251</td>
+    </tr>
+  </tbody>
+</table></div><div class="warning"><strong>No se demuestra utilidad operativa.</strong><br>La clasificación casi universal impide priorizar. El intervalo del ahorro de costo frente a Dummy incluye cero.</div>
+<p class="small">IC 95 % del ahorro por registro: -0,000542 a 0,001233. Bootstrap pareado de predicciones ya calculadas; no incluye otras semillas ni validez clínica.</p></div></div>
+</section>
+<section class="slide" id="s7" data-title="Demostración" hidden>
+<p class="kicker">07 / Modelo funcionando</p><h2>Prueba un ejemplo ficticio.</h2><p class="lead">La misma regresión se ejecuta aquí, en tu navegador, sin conexión. Streamlit utiliza el Pipeline de scikit-learn.</p>
+<div class="grid"><div><label for="example">Elegir escenario inventado</label><select id="example"></select><form id="prediction-form">
+<div class="fields" id="main-fields"></div><details><summary>Otros predictores del escenario</summary><div class="fields" id="other-fields"></div></details>
+<button type="submit">▶ Ejecutar predicción</button></form><p class="caption">No introduzcas información de personas reales. No se envían ni almacenan los valores del formulario.</p></div>
+<div><div id="prediction-result" class="result" aria-live="polite"><p>Resultado del modelo</p><b>—</b><p class="small">Pulsa ejecutar para calcular una nueva probabilidad.</p></div>
+<p class="caption">Probabilidad de una etiqueta simulada, no probabilidad de padecer un trastorno. Las reglas incorporan atributos sensibles; no constituyen evidencia causal.</p>
+<details><summary>Cómo se calcula</summary><p>Se normalizan categorías y faltantes como en Python. Se suman los coeficientes del one-hot y de los seis sitios; se aplica la función logística y el umbral fijo.</p><pre>P(Alcohol simulado) = 1 / (1 + exp(−z))
+z = intercepto + suma de contribuciones
+Clase Alcohol si P ≥ 0,13</pre></details></div></div>
+</section>
+<section class="slide" id="s8" data-title="Límites y entrega" hidden>
+<p class="kicker">08 / Despliegue, límites y gobernanza</p><h2>Un prototipo demostrable.<br>Una conclusión responsable.</h2>
+<div class="grid"><ol class="steps"><li><strong>Qué demuestra:</strong> reproducibilidad, comparación de modelos e inferencia interactiva.</li><li><strong>Qué no demuestra:</strong> diagnóstico, prevención, ahorro institucional o pacientes atendidos.</li><li><strong>Qué falta:</strong> etiquetas observadas, unidad de análisis verificable, validación temporal y por persona.</li><li><strong>Condición para avanzar:</strong> costos y capacidad acordados, evaluación de sesgos y supervisión humana.</li></ol>
+<div class="panel"><h3>Evidencia disponible</h3><p>Tablas, modelo, pruebas y documentación permanecen versionados en GitHub.</p>
+<div class="actions"><a class="button" href="https://github.com/nfmanios-debug/machine_learning_1/tree/main/Proyecto_Final/despliegue" target="_blank" rel="noopener">Abrir repositorio ↗</a><a class="button secondary" href="notebook.html" target="_blank" rel="noopener">Notebook completo ↗</a></div>
+<div id="app-link"></div><p class="small">El HTML incluye inferencia local real de la regresión exportada. Los gráficos de evaluación se reconstruyen con resultados guardados; no reentrenan Python.</p>
+<p class="small">Fuente: Secretaría Distrital de Salud / VESPA. Atribución CC BY 4.0 según ficha nacional. <a href="https://github.com/nfmanios-debug/machine_learning_1/blob/main/Proyecto_Final/ficha_datos.md" target="_blank" rel="noopener">Ficha y licencia</a>.</p></div></div>
+<div class="warning">Alcohol es una etiqueta simulada. No usar este prototipo para asignar recursos, negar atención o clasificar personas reales.</div>
+</section>
+</main>
+<footer><div class="nav"><button id="prev" class="secondary" aria-label="Diapositiva anterior">←</button><span class="counter" id="counter">01 / 08</span><button id="next" aria-label="Diapositiva siguiente">→</button><select id="jump" aria-label="Ir a sección"></select></div><span class="small footer-note">← → para navegar · HTML sin dependencias externas</span></footer>
+<div class="progress" id="progress"></div>
+<script id="payload" type="application/json">{"resultados": {"semilla": 2026, "sha256_datos": "468301ee4e637df11eb825136b9abe03300a947d0ce6bb2bfba48356c5cd5d85", "versiones": {"python": "3.12.14", "numpy": "2.5.4", "pandas": "3.0.6", "scikit-learn": "1.9.1", "matplotlib": "3.11.2", "nbformat": "5.11.1", "nbclient": "0.11.0"}, "etiqueta_simulada": true, "filas_crudas": 101500, "columnas_crudas": 21, "n_desarrollo": 60900, "n_umbral": 20300, "n_test": 20300, "positivos_desarrollo": 39173, "positivos_umbral": 13058, "positivos_test": 13058, "columnas_transformadas": 185, "modelo_final": "Logistica", "parametros": {"modelo__C": 0.1}, "umbral_final": 0.13, "costo_FN": 5.0, "costo_FP": 1.0, "test": {"umbral": 0.13, "n": 20300, "TN": 23, "FP": 7219, "FN": 3, "TP": 13055, "costo": 0.35635467980295565, "sensibilidad": 0.9997702557818962, "precision": 0.6439281838808326, "especificidad": 0.0031759182546257938, "f1": 0.7833313332533302, "accuracy": 0.6442364532019704, "auc": 0.7614397044198828, "pr_auc": 0.8497332703407117, "brier": 0.18619153398429628, "fraccion_alertas": 0.9987192118226601, "IC95_costo": [0.35004433497536946, 0.36295935960591136], "IC95_ahorro_vs_dummy": [-0.000541871921182266, 0.001232758620689654]}, "baseline_test": {"umbral": 0.16666666666666666, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.35674876847290643, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.5, "pr_auc": 0.6432512315270936, "brier": 0.22947908493559932, "fraccion_alertas": 1.0}, "comparacion_cv": [{"modelo": "Logistica", "costo_cv": 0.3542692939244664, "sd_costo": 0.0015105393672392602, "var_costo": 2.281729179979585e-06, "auc_cv": 0.75765363373238, "sd_auc": 0.0017684761009407884, "pr_auc_cv": 0.8465459435163087, "costo_train": 0.35417487684729065, "complejidad": 1, "parametros": "{\"modelo__C\": 0.1}", "brecha_costo": 9.441707717572356e-05}, {"modelo": "Arbol", "costo_cv": 0.35474548440065684, "sd_costo": 0.002138117678675459, "var_costo": 4.571547207864533e-06, "auc_cv": 0.7547564482648271, "sd_auc": 0.00185398390104, "pr_auc_cv": 0.8397226123143128, "costo_train": 0.35393678160919545, "complejidad": 2, "parametros": "{\"modelo__max_depth\": 8, \"modelo__min_samples_leaf\": 100}", "brecha_costo": 0.0008087027914613909}, {"modelo": "Dummy", "costo_cv": 0.3567651888341543, "sd_costo": 4.496901128942549e-05, "var_costo": 2.0222119763484773e-09, "auc_cv": 0.5, "sd_auc": 0.0, "pr_auc_cv": 0.6432348111658456, "costo_train": 0.35676518883415437, "complejidad": 0, "parametros": "{}", "brecha_costo": -5.551115123125783e-17}, {"modelo": "Bosque", "costo_cv": 0.3567651888341543, "sd_costo": 4.496901128942549e-05, "var_costo": 2.0222119763484773e-09, "auc_cv": 0.7506566741065025, "sd_auc": 0.0023082625745517956, "pr_auc_cv": 0.8402545948493735, "costo_train": 0.35676518883415437, "complejidad": 3, "parametros": "{\"modelo__max_depth\": 6}", "brecha_costo": -5.551115123125783e-17}]}, "modelo": {"etiqueta_simulada": true, "aviso": "Alcohol es una etiqueta simulada. Prototipo académico; no es un diagnóstico ni una estimación validada de riesgo clínico.", "umbral": 0.13, "intercepto": 0.4671290121932263, "clases": [0, 1], "pesos_categoricos": {"SEXO": {"Desconocido": -0.2796586618516303, "Hombre": 0.42176880824210994, "Intersexual": -0.017267554678140083, "Mujer": 0.16937776629707257}, "NOMBRELOCALIDADRESIDENCIA": {"Antonio Nariño": -0.13858184802643453, "Barrios Unidos": 0.07644964578980525, "Bosa": 0.050254437835924946, "Candelaria": 0.022874834992647197, "Chapinero": -0.03257086615294778, "Ciudad Bolívar": 0.007265790719769067, "Desconocido": -0.03716461714456707, "Engativá": 0.022150298443091056, "Fontibón": -0.016033528392340728, "Kennedy": 0.1207482686256602, "Mártires": 0.04852398054925238, "Puente Aranda": 0.03928343334793564, "Rafael Uribe": 0.02626417692628663, "San Cristóbal": 0.025842829576836944, "Santa Fe": -0.07251746186631534, "Suba": 0.06563077819325788, "Sumapaz": 0.013646664441406978, "Teusaquillo": -0.026227930740729124, "Tunjuelito": 0.07378938597663773, "Usaquén": 0.004182051891582689, "Usme": 0.02041003302268473}, "NOMBREUPZ": {"20 DE JULIO": 0.003031578179193802, "AEROPUERTO EL DORADO": -0.16693450427063913, "ALAMOS": -0.18470558259347575, "ALFONSO LOPEZ": 0.02405655340738614, "AMERICAS": -0.03812553917887585, "APOGEO": 0.027831406648722284, "ARBORIZADORA": 0.07394322535977718, "BAVARIA": 0.12567532318411148, "BOLIVIA": -0.143585689873867, "BOSA CENTRAL": 0.0654191815596588, "BOSA OCCIDENTAL": -0.025619480385408636, "BOYACA REAL": 0.0641000846832172, "BRITALIA": 0.05240869905492147, "CALANDAIMA": 0.01929985174654167, "CAPELLANIA": 0.04378156764282916, "CARVAJAL": -0.21499375178399985, "CASA BLANCA SUBA": -0.014795763160525624, "CASTILLA": -0.13698901880460262, "CHAPINERO": 0.18967457411925354, "CHICO LAGO": -0.13515555263785597, "CIUDAD JARDIN": -0.027807215459488714, "CIUDAD MONTES": -0.04465783662770788, "CIUDAD SALITRE OCCIDENTAL": 0.21092697489929116, "CIUDAD SALITRE ORIENTAL": -0.02292875399193524, "CIUDAD USME": -0.13287396762297696, "COMUNEROS": 0.04016612889794506, "CORABASTOS": -0.01804140045225264, "COUNTRY CLUB": -0.1726445785339334, "DANUBIO": -0.12437088343801549, "DIANA TURBAY": -0.1696249976479415, "DOCE DE OCTUBRE": 0.0376754413990101, "Desconocido": 0.0517118724170428, "EL MINUTO DE DIOS": 0.1192922198006137, "EL MOCHUELO": -0.012994312803024108, "EL PORVENIR": -0.02182498391858802, "EL PRADO": -0.11383259170885673, "EL REFUGIO": -0.07864368850635117, "EL RINCON": -0.010463919361887208, "EL TESORO": -0.14950892533685087, "ENGATIVA": 0.058739913850702825, "FONTIBON": 0.13773948971323113, "FONTIBON SAN PABLO": -0.11649396825704247, "GALERIAS": 0.1984682761073246, "GARCES NAVAS": 0.1809257044125289, "GRAN BRITALIA": 0.010649211137945817, "GRAN YOMASA": -0.010406200890746876, "GRANJAS DE TECHO": -0.0003443927927466098, "ISMAEL PERDOMO": 0.022837652666035546, "JARDIN BOTANICO": -0.01128851324884543, "JERUSALEM": 0.06941991602240448, "KENNEDY CENTRAL": -0.22421498146635327, "LA ACADEMIA": 0.003005954987834981, "LA ALHAMBRA": 0.19335627507728861, "LA CANDELARIA": -0.01463598229238371, "LA ESMERALDA": -0.04559717001419104, "LA FLORA": 0.1387815585069417, "LA FLORESTA": 0.04065823911968954, "LA GLORIA": 0.06639419587058924, "LA MACARENA": 0.11551465639037892, "LA SABANA": -0.03430741137342742, "LA URIBE": 0.1577714060749999, "LAS CRUCES": 0.22165631442030986, "LAS FERIAS": -0.006812144822454701, "LAS MARGARITAS": 0.19731395282484432, "LAS NIEVES": 0.10836735580927771, "LOS ALCAZARES": 0.0971982940007108, "LOS ANDES": -0.1372200907898158, "LOS CEDROS": -0.07263921735312656, "LOS LIBERTADORES": 0.006875480026395956, "LOURDES": -0.1897100796711906, "LUCERO": 0.10307015439186605, "MARCO FIDEL SUAREZ": -0.04813258919743695, "MARRUECOS": 0.10699085048053616, "MODELIA": -0.11814416634238059, "MONTE BLANCO": 0.011799270440713008, "MUZU": -0.2090315237979958, "NIZA": -0.016147025093576607, "PARDO RUBIO": 0.02540950020387353, "PARQUE EL SALITRE": -0.1299917460971098, "PARQUE ENTRENUBES": 0.027727716631803807, "PARQUE SIMON BOLIVAR-CAN": -0.009055736170276663, "PASEO DE LOS LIBERTADORES": -0.03072964957967739, "PATIO BONITO": -0.0022237676607723385, "PUENTE ARANDA": 0.04853831560016146, "QUINTA PAREDES": -0.10698115253265143, "QUIROGA": 0.03221548890697702, "RESTREPO": -0.0476135935575972, "SAGRADO CORAZON": -0.09761471942106657, "SAN BLAS": -0.0454921038275093, "SAN CRISTOBAL NORTE": 0.0023054087615602403, "SAN FRANCISCO": 0.10345425211791323, "SAN ISIDRO-PATIOS": 0.014131226204184711, "SAN JOSE": 0.17266921153256823, "SAN JOSE DE BAVARIA": 0.05028259706768695, "SAN RAFAEL": 0.06737426516287105, "SANTA BARBARA": 0.08899349441626503, "SANTA CECILIA": -0.007786569446558159, "SANTA ISABEL": -0.08196163583277934, "SOSIEGO": 0.06482524703313028, "SUBA": 0.02594051593905803, "TEUSAQUILLO": 0.0032632166429066513, "TIBABUYES": -0.01661575007114811, "TIMIZA": 0.03897034404131673, "TINTAL NORTE": 0.2470402592093927, "TINTAL SUR": 0.023331875238517426, "TOBERIN": -0.09332402226311078, "TUNJUELITO": -0.12780368232037256, "UPR Rio San Juan": -0.021694753443894856, "USAQUEN": -0.03052173166587083, "VENECIA": -0.013443745469879665, "VERBENAL": 0.1758824575899092, "ZONA FRANCA": 0.00703941196138859, "ZONA INDUSTRIAL": -0.04260049672105384}, "CURSO_DE_VIDA": {"Adolescencia": -0.5366221099336993, "Adultez": 0.7045898272589086, "Juventud": -0.5962927862866765, "Vejez": 0.7225454269708688}, "NIVELEDUCATIVO": {"Desconocido": 0.03426908963923918, "No fue a la escuela": 0.030373899749723907, "Postgrado completo": -0.019995318535032364, "Postgrado incompleto": -0.0072779988636803815, "Preescolar": 0.08296164460826591, "Primaria completa": 0.0151439834817846, "Primaria incompleta": -0.06560912934339994, "Secundaria completa": 0.02586831935241456, "Secundaria incompleta": 0.005426269061766145, "Técnico post-secundaria completa": 0.09013850304577453, "Técnico post-secundaria incompleta": 0.00919242874542781, "Universidad completa": -0.00897139853853673, "Universidad incompleta": 0.10270006560570204}, "PERTENENCIAETNICA": {"AfroColombianos": 0.08815216530485986, "Caucásico": -0.0038512286095219923, "Desconocido": 0.016668280850524405, "Indígena": -0.17878467922394584, "Mulato": 0.021637020975578163, "Otros": 0.11227916964275986, "Palenquero": -0.024180428058592343, "ROM": 0.09097703220635225, "Raizal": 0.17132302492134588}, "ESTADOCIVIL": {"Casado (a)": 0.05518706763433722, "Desconocido": 0.06294038377737758, "Divorciado (a)": 0.027355375059296704, "Separado (a)": 0.01245740548253519, "Soltero (a)": -0.001469580466105608, "Union libre": 0.026861508760303934, "Viudo (a)": 0.11088819776166836}, "TIPOASEGURAMIENTO": {"Contributivo": 0.02010898223953366, "Desconocido": 0.07719793260066746, "Excepción": -0.009043280178164389, "Medicina prepagada": -0.0006331849792870081, "Particular": 0.019687981968468698, "Regimen especial": 0.17199356244892244, "Subsidiado": -0.003567119898677729, "Vinculado": 0.018475483807999696}}, "pesos_binarios": {"SITIOHABITUALCONSUMO_VIVIENDA": 0.48347747961349874, "SITIOHABITUALCONSUMO_PARQUE": -1.166927443540114, "SITIOHABITUALCONSUMO_EST_EDUCATIVO": -0.9323360140265339, "SITIOHABITUALCONSUMO_BARES_TABERNAS": 0.7037842686696301, "SITIOHABITUALCONSUMO_VIA_PUBLICA": -0.025747676950252776, "SITIOHABITUALCONSUMO_CASA_AMIGOS": -0.025747676950252776}, "marcadores": ["n.a.", "sin dato", "sin informacion", "upz sin asignar"], "nombres": {"SEXO": "Sexo registrado", "NOMBRELOCALIDADRESIDENCIA": "Localidad", "NOMBREUPZ": "UPZ", "CURSO_DE_VIDA": "Curso de vida", "NIVELEDUCATIVO": "Nivel educativo", "PERTENENCIAETNICA": "Pertenencia étnica", "ESTADOCIVIL": "Estado civil", "TIPOASEGURAMIENTO": "Aseguramiento", "SITIOHABITUALCONSUMO_VIVIENDA": "Vivienda", "SITIOHABITUALCONSUMO_PARQUE": "Parque", "SITIOHABITUALCONSUMO_EST_EDUCATIVO": "Establecimiento educativo", "SITIOHABITUALCONSUMO_BARES_TABERNAS": "Bares / tabernas", "SITIOHABITUALCONSUMO_VIA_PUBLICA": "Vía pública", "SITIOHABITUALCONSUMO_CASA_AMIGOS": "Casa de amigos"}, "ejemplos": [{"nombre": "A · Adultez / vivienda", "valores": {"SEXO": "Hombre", "NOMBRELOCALIDADRESIDENCIA": "Desconocido", "NOMBREUPZ": "Desconocido", "CURSO_DE_VIDA": "Adultez", "NIVELEDUCATIVO": "Desconocido", "PERTENENCIAETNICA": "Desconocido", "ESTADOCIVIL": "Desconocido", "TIPOASEGURAMIENTO": "Desconocido", "SITIOHABITUALCONSUMO_VIVIENDA": "SI", "SITIOHABITUALCONSUMO_PARQUE": "NO", "SITIOHABITUALCONSUMO_EST_EDUCATIVO": "NO", "SITIOHABITUALCONSUMO_BARES_TABERNAS": "NO", "SITIOHABITUALCONSUMO_VIA_PUBLICA": "NO", "SITIOHABITUALCONSUMO_CASA_AMIGOS": "NO"}, "probabilidad": 0.9074246873461753}, {"nombre": "B · Juventud / espacios abiertos", "valores": {"SEXO": "Mujer", "NOMBRELOCALIDADRESIDENCIA": "Desconocido", "NOMBREUPZ": "Desconocido", "CURSO_DE_VIDA": "Juventud", "NIVELEDUCATIVO": "Desconocido", "PERTENENCIAETNICA": "Desconocido", "ESTADOCIVIL": "Desconocido", "TIPOASEGURAMIENTO": "Desconocido", "SITIOHABITUALCONSUMO_VIVIENDA": "NO", "SITIOHABITUALCONSUMO_PARQUE": "SI", "SITIOHABITUALCONSUMO_EST_EDUCATIVO": "SI", "SITIOHABITUALCONSUMO_BARES_TABERNAS": "NO", "SITIOHABITUALCONSUMO_VIA_PUBLICA": "SI", "SITIOHABITUALCONSUMO_CASA_AMIGOS": "NO"}, "probabilidad": 0.1324837554092993}, {"nombre": "C · Información incompleta", "valores": {"SEXO": "Desconocido", "NOMBRELOCALIDADRESIDENCIA": "Desconocido", "NOMBREUPZ": "Desconocido", "CURSO_DE_VIDA": "Desconocido", "NIVELEDUCATIVO": "Desconocido", "PERTENENCIAETNICA": "Desconocido", "ESTADOCIVIL": "Desconocido", "TIPOASEGURAMIENTO": "Desconocido", "SITIOHABITUALCONSUMO_VIVIENDA": "NO", "SITIOHABITUALCONSUMO_PARQUE": "NO", "SITIOHABITUALCONSUMO_EST_EDUCATIVO": "NO", "SITIOHABITUALCONSUMO_BARES_TABERNAS": "NO", "SITIOHABITUALCONSUMO_VIA_PUBLICA": "NO", "SITIOHABITUALCONSUMO_CASA_AMIGOS": "NO"}, "probabilidad": 0.5970271241819274}]}, "agregados": {"ANO": [{"categoria": "2015", "registros": 11601}, {"categoria": "2016", "registros": 8136}, {"categoria": "2017", "registros": 4922}, {"categoria": "2018", "registros": 4763}, {"categoria": "2019", "registros": 9664}, {"categoria": "2020", "registros": 6774}, {"categoria": "2021", "registros": 9820}, {"categoria": "2022", "registros": 9806}, {"categoria": "2023", "registros": 8982}, {"categoria": "2024", "registros": 10446}, {"categoria": "2025", "registros": 11474}, {"categoria": "2026", "registros": 5112}], "NOMBRELOCALIDADRESIDENCIA": [{"categoria": "Antonio Nariño", "registros": 1397}, {"categoria": "Barrios Unidos", "registros": 1789}, {"categoria": "Bosa", "registros": 9083}, {"categoria": "Candelaria", "registros": 1625}, {"categoria": "Chapinero", "registros": 2617}, {"categoria": "Ciudad Bolívar", "registros": 7613}, {"categoria": "Engativá", "registros": 6880}, {"categoria": "Fontibón", "registros": 4715}, {"categoria": "Kennedy", "registros": 9825}, {"categoria": "Mártires", "registros": 6693}, {"categoria": "N.A.", "registros": 442}, {"categoria": "Puente Aranda", "registros": 5582}, {"categoria": "Rafael Uribe", "registros": 3984}, {"categoria": "San Cristóbal", "registros": 5272}, {"categoria": "Santa Fe", "registros": 5083}, {"categoria": "Sin dato", "registros": 4569}, {"categoria": "Suba", "registros": 8686}, {"categoria": "Sumapaz", "registros": 10}, {"categoria": "Teusaquillo", "registros": 2935}, {"categoria": "Tunjuelito", "registros": 3393}, {"categoria": "Usaquén", "registros": 3691}, {"categoria": "Usme", "registros": 5616}], "CURSO_DE_VIDA": [{"categoria": "Adolescencia", "registros": 18084}, {"categoria": "Adultez", "registros": 38817}, {"categoria": "Juventud", "registros": 41058}, {"categoria": "Vejez", "registros": 3541}]}, "curva": [{"umbral": 0.0, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.01, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.02, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.03, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.04, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.05, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.06, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.07, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.08, "n": 20300, "TN": 0, "FP": 7242, "FN": 0, "TP": 13058, "costo": 0.3567487684729064, "sensibilidad": 1.0, "precision": 0.6432512315270936, "especificidad": 0.0, "f1": 0.7829006535163978, "accuracy": 0.6432512315270936, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 1.0}, {"umbral": 0.09, "n": 20300, "TN": 1, "FP": 7241, "FN": 0, "TP": 13058, "costo": 0.3566995073891625, "sensibilidad": 1.0, "precision": 0.6432829203409035, "especificidad": 0.000138083402375, "f1": 0.7829241238720508, "accuracy": 0.6433004926108374, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9999507389162562}, {"umbral": 0.1, "n": 20300, "TN": 2, "FP": 7240, "FN": 0, "TP": 13058, "costo": 0.3566502463054187, "sensibilidad": 1.0, "precision": 0.6433146122770717, "especificidad": 0.00027616680475, "f1": 0.7829475956349682, "accuracy": 0.6433497536945813, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9999014778325124}, {"umbral": 0.11, "n": 20300, "TN": 5, "FP": 7237, "FN": 1, "TP": 13057, "costo": 0.3567487684729064, "sensibilidad": 0.9999234185939654, "precision": 0.6433921356065833, "especificidad": 0.0006904170118751, "f1": 0.7829815303430079, "accuracy": 0.643448275862069, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9997044334975368}, {"umbral": 0.12, "n": 20300, "TN": 8, "FP": 7234, "FN": 1, "TP": 13057, "costo": 0.3566009852216749, "sensibilidad": 0.9999234185939654, "precision": 0.6434872603617368, "especificidad": 0.0011046672190002, "f1": 0.7830519655761792, "accuracy": 0.6435960591133005, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9995566502463056}, {"umbral": 0.13, "n": 20300, "TN": 20, "FP": 7222, "FN": 1, "TP": 13057, "costo": 0.3560098522167487, "sensibilidad": 0.9999234185939654, "precision": 0.6438680408304157, "especificidad": 0.0027616680475006, "f1": 0.7833338332783394, "accuracy": 0.6441871921182266, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9989655172413792}, {"umbral": 0.14, "n": 20300, "TN": 49, "FP": 7193, "FN": 8, "TP": 13050, "costo": 0.3563054187192118, "sensibilidad": 0.9993873487517232, "precision": 0.644667292397372, "especificidad": 0.0067660867163766, "f1": 0.7837602474400168, "accuracy": 0.6452709359605912, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.997192118226601}, {"umbral": 0.15, "n": 20300, "TN": 79, "FP": 7163, "FN": 14, "TP": 13044, "costo": 0.3563054187192118, "sensibilidad": 0.9989278603155154, "precision": 0.6455188795961796, "especificidad": 0.0109085887876277, "f1": 0.7842477078009921, "accuracy": 0.6464532019704433, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9954187192118228}, {"umbral": 0.16, "n": 20300, "TN": 108, "FP": 7134, "FN": 20, "TP": 13038, "costo": 0.3563546798029556, "sensibilidad": 0.9984683718793076, "precision": 0.6463414634146342, "especificidad": 0.0149130074565037, "f1": 0.7847126090881733, "accuracy": 0.6475862068965518, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.993694581280788}, {"umbral": 0.1666666666666666, "n": 20300, "TN": 138, "FP": 7104, "FN": 27, "TP": 13031, "costo": 0.3566009852216749, "sensibilidad": 0.9979323020370654, "precision": 0.6471815247082195, "especificidad": 0.0190555095277547, "f1": 0.7851655469526707, "accuracy": 0.6487192118226601, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.991871921182266}, {"umbral": 0.17, "n": 20300, "TN": 155, "FP": 7087, "FN": 31, "TP": 13027, "costo": 0.3567487684729064, "sensibilidad": 0.9976259764129268, "precision": 0.6476583474197076, "especificidad": 0.0214029273681303, "f1": 0.7854214397684794, "accuracy": 0.64935960591133, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9908374384236454}, {"umbral": 0.18, "n": 20300, "TN": 200, "FP": 7042, "FN": 41, "TP": 13017, "costo": 0.3569950738916256, "sensibilidad": 0.9968601623525808, "precision": 0.6489356398624059, "especificidad": 0.0276166804750069, "f1": 0.78612193133436, "accuracy": 0.6510837438423646, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.988128078817734}, {"umbral": 0.19, "n": 20300, "TN": 216, "FP": 7026, "FN": 47, "TP": 13011, "costo": 0.3576847290640394, "sensibilidad": 0.9964006739163732, "precision": 0.6493487048959425, "especificidad": 0.0298260149130074, "f1": 0.7862819156972353, "accuracy": 0.6515763546798029, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9870443349753696}, {"umbral": 0.2, "n": 20300, "TN": 224, "FP": 7018, "FN": 55, "TP": 13003, "costo": 0.3592610837438423, "sensibilidad": 0.9957880226680962, "precision": 0.6494680585385345, "especificidad": 0.0309306821320077, "f1": 0.7861785422775779, "accuracy": 0.6515763546798029, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.986256157635468}, {"umbral": 0.21, "n": 20300, "TN": 231, "FP": 7011, "FN": 61, "TP": 12997, "costo": 0.3603940886699507, "sensibilidad": 0.9953285342318884, "precision": 0.6495901639344263, "especificidad": 0.0318972659486329, "f1": 0.7861247202564567, "accuracy": 0.6516256157635468, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.985615763546798}, {"umbral": 0.22, "n": 20300, "TN": 243, "FP": 6999, "FN": 65, "TP": 12993, "costo": 0.3607881773399015, "sensibilidad": 0.99502220860775, "precision": 0.6499099639855942, "especificidad": 0.0335542667771333, "f1": 0.7862632375189107, "accuracy": 0.6520197044334975, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9848275862068966}, {"umbral": 0.23, "n": 20300, "TN": 266, "FP": 6976, "FN": 75, "TP": 12983, "costo": 0.3621182266009852, "sensibilidad": 0.994256394547404, "precision": 0.6504834911568715, "especificidad": 0.0367301850317591, "f1": 0.7864433473665081, "accuracy": 0.6526600985221674, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9832019704433498}, {"umbral": 0.24, "n": 20300, "TN": 314, "FP": 6928, "FN": 86, "TP": 12972, "costo": 0.3624630541871921, "sensibilidad": 0.9934139990810232, "precision": 0.651859296482412, "especificidad": 0.0433581883457608, "f1": 0.7871836883306026, "accuracy": 0.6544827586206896, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9802955665024632}, {"umbral": 0.25, "n": 20300, "TN": 359, "FP": 6883, "FN": 108, "TP": 12950, "costo": 0.3656650246305418, "sensibilidad": 0.9917292081482616, "precision": 0.6529521504563102, "especificidad": 0.0495719414526373, "f1": 0.7874494542580037, "accuracy": 0.6556157635467981, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9769950738916257}, {"umbral": 0.26, "n": 20300, "TN": 412, "FP": 6830, "FN": 125, "TP": 12933, "costo": 0.3672413793103448, "sensibilidad": 0.9904273242456731, "precision": 0.654404695643374, "especificidad": 0.0568903617785142, "f1": 0.7880929892446908, "accuracy": 0.6573891625615763, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9735467980295568}, {"umbral": 0.27, "n": 20300, "TN": 488, "FP": 6754, "FN": 156, "TP": 12902, "costo": 0.3711330049261084, "sensibilidad": 0.9880533006586, "precision": 0.6563899063899064, "especificidad": 0.0673847003590168, "f1": 0.788775447820505, "accuracy": 0.6596059113300493, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9682758620689657}, {"umbral": 0.28, "n": 20300, "TN": 606, "FP": 6636, "FN": 214, "TP": 12844, "costo": 0.3796059113300493, "sensibilidad": 0.9836115791085924, "precision": 0.6593429158110883, "especificidad": 0.0836785418392709, "f1": 0.7894769192943635, "accuracy": 0.6625615763546798, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9596059113300492}, {"umbral": 0.29, "n": 20300, "TN": 769, "FP": 6473, "FN": 276, "TP": 12782, "costo": 0.3868472906403941, "sensibilidad": 0.9788635319344464, "precision": 0.6638275772526616, "especificidad": 0.1061861364264015, "f1": 0.7911366942097607, "accuracy": 0.6675369458128079, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9485221674876848}, {"umbral": 0.3, "n": 20300, "TN": 921, "FP": 6321, "FN": 354, "TP": 12704, "costo": 0.3985714285714286, "sensibilidad": 0.9728901822637464, "precision": 0.6677529566360052, "especificidad": 0.1271748135874068, "f1": 0.7919458903469127, "accuracy": 0.6711822660098522, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.937192118226601}, {"umbral": 0.31, "n": 20300, "TN": 1038, "FP": 6204, "FN": 415, "TP": 12643, "costo": 0.4078325123152709, "sensibilidad": 0.9682187164956348, "precision": 0.6708229426433915, "especificidad": 0.1433305716652858, "f1": 0.7925403541764614, "accuracy": 0.6739408866995074, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.928423645320197}, {"umbral": 0.32, "n": 20300, "TN": 1211, "FP": 6031, "FN": 506, "TP": 12552, "costo": 0.4217241379310344, "sensibilidad": 0.9612498085464848, "precision": 0.6754560619921434, "especificidad": 0.1672190002761668, "f1": 0.7934009670996491, "accuracy": 0.6779802955665024, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.9154187192118226}, {"umbral": 0.33, "n": 20300, "TN": 1461, "FP": 5781, "FN": 635, "TP": 12423, "costo": 0.4411822660098522, "sensibilidad": 0.9513708071680196, "precision": 0.6824324324324325, "especificidad": 0.2017398508699254, "f1": 0.7947668095451347, "accuracy": 0.6839408866995074, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8967487684729064}, {"umbral": 0.34, "n": 20300, "TN": 1751, "FP": 5491, "FN": 800, "TP": 12258, "costo": 0.4675369458128078, "sensibilidad": 0.938734875172308, "precision": 0.6906304580539748, "especificidad": 0.2417840375586854, "f1": 0.7957931638913234, "accuracy": 0.6900985221674877, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8743349753694581}, {"umbral": 0.35, "n": 20300, "TN": 2008, "FP": 5234, "FN": 931, "TP": 12127, "costo": 0.4871428571428571, "sensibilidad": 0.9287027109817736, "precision": 0.6985196705258914, "especificidad": 0.2772714719690693, "f1": 0.7973306157335875, "accuracy": 0.6963054187192118, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8552216748768473}, {"umbral": 0.36, "n": 20300, "TN": 2185, "FP": 5057, "FN": 1034, "TP": 12024, "costo": 0.5037931034482759, "sensibilidad": 0.9208148261602084, "precision": 0.7039400503483403, "especificidad": 0.3017122341894504, "f1": 0.7979030492053486, "accuracy": 0.6999507389162561, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8414285714285714}, {"umbral": 0.37, "n": 20300, "TN": 2291, "FP": 4951, "FN": 1091, "TP": 11967, "costo": 0.5126108374384236, "sensibilidad": 0.9164496860162352, "precision": 0.7073531150254168, "especificidad": 0.3163490748412041, "f1": 0.7984387510008006, "accuracy": 0.7023645320197044, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8333990147783251}, {"umbral": 0.38, "n": 20300, "TN": 2380, "FP": 4862, "FN": 1147, "TP": 11911, "costo": 0.5220197044334975, "sensibilidad": 0.9121611272782968, "precision": 0.710129374590115, "especificidad": 0.3286384976525822, "f1": 0.7985652509134793, "accuracy": 0.7039901477832512, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.826256157635468}, {"umbral": 0.39, "n": 20300, "TN": 2448, "FP": 4794, "FN": 1205, "TP": 11853, "costo": 0.5329556650246305, "sensibilidad": 0.9077194057282892, "precision": 0.7120201838169039, "especificidad": 0.3380281690140845, "f1": 0.7980474667564383, "accuracy": 0.7044827586206897, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8200492610837439}, {"umbral": 0.4, "n": 20300, "TN": 2553, "FP": 4689, "FN": 1264, "TP": 11794, "costo": 0.5423152709359605, "sensibilidad": 0.9032011027722469, "precision": 0.7155250864527088, "especificidad": 0.3525269262634631, "f1": 0.798483463660675, "accuracy": 0.7067487684729064, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8119704433497537}, {"umbral": 0.41, "n": 20300, "TN": 2641, "FP": 4601, "FN": 1342, "TP": 11716, "costo": 0.557192118226601, "sensibilidad": 0.8972277531015469, "precision": 0.7180241465955751, "especificidad": 0.3646782656724662, "f1": 0.7976851063829787, "accuracy": 0.7072413793103448, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.8037931034482758}, {"umbral": 0.42, "n": 20300, "TN": 2729, "FP": 4513, "FN": 1405, "TP": 11653, "costo": 0.5683743842364533, "sensibilidad": 0.8924031245213662, "precision": 0.720833848818508, "especificidad": 0.3768296050814692, "f1": 0.7974952094169176, "accuracy": 0.7084729064039409, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7963546798029557}, {"umbral": 0.43, "n": 20300, "TN": 2817, "FP": 4425, "FN": 1462, "TP": 11596, "costo": 0.5780788177339902, "sensibilidad": 0.8880379843773931, "precision": 0.7238000124836153, "especificidad": 0.3889809444904722, "f1": 0.7975514976443482, "accuracy": 0.71, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7892118226600985}, {"umbral": 0.44, "n": 20300, "TN": 2916, "FP": 4326, "FN": 1557, "TP": 11501, "costo": 0.5966009852216749, "sensibilidad": 0.8807627508041047, "precision": 0.7266696152145069, "especificidad": 0.4026512013256006, "f1": 0.7963302752293578, "accuracy": 0.7101970443349753, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7796551724137931}, {"umbral": 0.45, "n": 20300, "TN": 3024, "FP": 4218, "FN": 1654, "TP": 11404, "costo": 0.6151724137931035, "sensibilidad": 0.8733343544187472, "precision": 0.7299961592625784, "especificidad": 0.4175642087821044, "f1": 0.795258019525802, "accuracy": 0.7107389162561576, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7695566502463054}, {"umbral": 0.46, "n": 20300, "TN": 3141, "FP": 4101, "FN": 1732, "TP": 11326, "costo": 0.6286206896551724, "sensibilidad": 0.8673610047480472, "precision": 0.7341673688986842, "especificidad": 0.4337199668599834, "f1": 0.7952255573108654, "accuracy": 0.7126600985221675, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7599507389162562}, {"umbral": 0.47, "n": 20300, "TN": 3213, "FP": 4029, "FN": 1803, "TP": 11255, "costo": 0.6425615763546798, "sensibilidad": 0.8619237249195896, "precision": 0.7363909971211725, "especificidad": 0.4436619718309859, "f1": 0.7942276480135488, "accuracy": 0.7127093596059113, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7529064039408867}, {"umbral": 0.48, "n": 20300, "TN": 3288, "FP": 3954, "FN": 1857, "TP": 11201, "costo": 0.6521674876847291, "sensibilidad": 0.8577883289937204, "precision": 0.7390960079181789, "especificidad": 0.4540182270091135, "f1": 0.7940311204054868, "accuracy": 0.713743842364532, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.746551724137931}, {"umbral": 0.49, "n": 20300, "TN": 3367, "FP": 3875, "FN": 1937, "TP": 11121, "costo": 0.6679802955665025, "sensibilidad": 0.8516618165109512, "precision": 0.7415977594025074, "especificidad": 0.4649268157967412, "f1": 0.792828117202538, "accuracy": 0.7136945812807882, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7387192118226601}, {"umbral": 0.5, "n": 20300, "TN": 3442, "FP": 3800, "FN": 2015, "TP": 11043, "costo": 0.6834975369458128, "sensibilidad": 0.8456884668402512, "precision": 0.7439870646095803, "especificidad": 0.4752830709748688, "f1": 0.7915845310203935, "accuracy": 0.7135467980295567, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7311822660098523}, {"umbral": 0.51, "n": 20300, "TN": 3546, "FP": 3696, "FN": 2119, "TP": 10939, "costo": 0.7039901477832512, "sensibilidad": 0.8377240006126513, "precision": 0.7474547318073113, "especificidad": 0.4896437448218724, "f1": 0.7900191384104286, "accuracy": 0.7135467980295567, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.720935960591133}, {"umbral": 0.52, "n": 20300, "TN": 3635, "FP": 3607, "FN": 2199, "TP": 10859, "costo": 0.7193103448275862, "sensibilidad": 0.8315974881298821, "precision": 0.7506567122908889, "especificidad": 0.5019331676332505, "f1": 0.7890568231361721, "accuracy": 0.7139901477832512, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.7126108374384237}, {"umbral": 0.53, "n": 20300, "TN": 3706, "FP": 3536, "FN": 2289, "TP": 10769, "costo": 0.7379802955665025, "sensibilidad": 0.8247051615867668, "precision": 0.752813701502971, "especificidad": 0.5117370892018779, "f1": 0.7871212951796221, "accuracy": 0.7130541871921182, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.704679802955665}, {"umbral": 0.54, "n": 20300, "TN": 3775, "FP": 3467, "FN": 2358, "TP": 10700, "costo": 0.751576354679803, "sensibilidad": 0.8194210445703783, "precision": 0.7552763464389073, "especificidad": 0.5212648439657553, "f1": 0.7860422405876951, "accuracy": 0.7130541871921182, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6978817733990148}, {"umbral": 0.55, "n": 20300, "TN": 3848, "FP": 3394, "FN": 2455, "TP": 10603, "costo": 0.771871921182266, "sensibilidad": 0.8119926481850207, "precision": 0.7575194684575266, "especificidad": 0.5313449323391328, "f1": 0.7838107558676769, "accuracy": 0.711871921182266, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6895073891625616}, {"umbral": 0.56, "n": 20300, "TN": 3953, "FP": 3289, "FN": 2559, "TP": 10499, "costo": 0.7923152709359605, "sensibilidad": 0.8040281819574208, "precision": 0.76145923991877, "especificidad": 0.5458436895885115, "f1": 0.7821649407732996, "accuracy": 0.7119211822660099, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6792118226600985}, {"umbral": 0.5700000000000001, "n": 20300, "TN": 4055, "FP": 3187, "FN": 2700, "TP": 10358, "costo": 0.8220197044334976, "sensibilidad": 0.7932302037065401, "precision": 0.7647102251753415, "especificidad": 0.559928196630765, "f1": 0.7787091681389317, "accuracy": 0.71, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6672413793103448}, {"umbral": 0.58, "n": 20300, "TN": 4162, "FP": 3080, "FN": 2845, "TP": 10213, "costo": 0.8524630541871921, "sensibilidad": 0.7821258998315209, "precision": 0.7682991047919958, "especificidad": 0.5747031206848937, "f1": 0.775150848165155, "accuracy": 0.708128078817734, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6548275862068965}, {"umbral": 0.59, "n": 20300, "TN": 4266, "FP": 2976, "FN": 2985, "TP": 10073, "costo": 0.8818226600985222, "sensibilidad": 0.7714045029866748, "precision": 0.7719365468618284, "especificidad": 0.5890637945318973, "f1": 0.7716704332171448, "accuracy": 0.7063546798029556, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.642807881773399}, {"umbral": 0.6, "n": 20300, "TN": 4402, "FP": 2840, "FN": 3198, "TP": 9860, "costo": 0.9275862068965516, "sensibilidad": 0.7550926635013019, "precision": 0.7763779527559055, "especificidad": 0.6078431372549019, "f1": 0.7655873903253358, "accuracy": 0.7025615763546798, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.625615763546798}, {"umbral": 0.61, "n": 20300, "TN": 4576, "FP": 2666, "FN": 3445, "TP": 9613, "costo": 0.9798522167487684, "sensibilidad": 0.736177056210752, "precision": 0.7828813421288379, "especificidad": 0.6318696492681579, "f1": 0.7588112246911631, "accuracy": 0.6989655172413793, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.6048768472906404}, {"umbral": 0.62, "n": 20300, "TN": 4767, "FP": 2475, "FN": 3714, "TP": 9344, "costo": 1.0366995073891625, "sensibilidad": 0.7155766579874406, "precision": 0.7905914205939589, "especificidad": 0.6582435791217895, "f1": 0.751215982634562, "accuracy": 0.6951231527093596, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.582216748768473}, {"umbral": 0.63, "n": 20300, "TN": 4987, "FP": 2255, "FN": 4062, "TP": 8996, "costo": 1.111576354679803, "sensibilidad": 0.6889263286873947, "precision": 0.7995733712558883, "especificidad": 0.6886219276442972, "f1": 0.7401373976716442, "accuracy": 0.6888177339901478, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.5542364532019705}, {"umbral": 0.64, "n": 20300, "TN": 5169, "FP": 2073, "FN": 4343, "TP": 8715, "costo": 1.1718226600985222, "sensibilidad": 0.6674069535916679, "precision": 0.8078420467185762, "especificidad": 0.7137531068765535, "f1": 0.7309401996141911, "accuracy": 0.6839408866995074, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.5314285714285715}, {"umbral": 0.65, "n": 20300, "TN": 5303, "FP": 1939, "FN": 4534, "TP": 8524, "costo": 1.2122660098522169, "sensibilidad": 0.6527799050390565, "precision": 0.81468030201663, "especificidad": 0.732256282794808, "f1": 0.724799115683857, "accuracy": 0.6811330049261084, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.5154187192118227}, {"umbral": 0.66, "n": 20300, "TN": 5390, "FP": 1852, "FN": 4691, "TP": 8367, "costo": 1.2466502463054188, "sensibilidad": 0.640756624291622, "precision": 0.8187689597808004, "especificidad": 0.7442695388014361, "f1": 0.7189070756540792, "accuracy": 0.6776847290640394, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.5033990147783252}, {"umbral": 0.67, "n": 20300, "TN": 5473, "FP": 1769, "FN": 4847, "TP": 8211, "costo": 1.280985221674877, "sensibilidad": 0.628809924950222, "precision": 0.8227454909819639, "especificidad": 0.7557304611985639, "f1": 0.7128222936018752, "accuracy": 0.6740886699507389, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4916256157635468}, {"umbral": 0.68, "n": 20300, "TN": 5550, "FP": 1692, "FN": 5000, "TP": 8058, "costo": 1.3148768472906405, "sensibilidad": 0.6170929698269261, "precision": 0.8264615384615385, "especificidad": 0.7663628831814416, "f1": 0.7065941774815854, "accuracy": 0.670344827586207, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4802955665024631}, {"umbral": 0.6900000000000001, "n": 20300, "TN": 5621, "FP": 1621, "FN": 5129, "TP": 7929, "costo": 1.3431527093596058, "sensibilidad": 0.6072139684484608, "precision": 0.8302617801047121, "especificidad": 0.776166804750069, "f1": 0.7014331210191083, "accuracy": 0.6674876847290641, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4704433497536945}, {"umbral": 0.7000000000000001, "n": 20300, "TN": 5694, "FP": 1548, "FN": 5282, "TP": 7776, "costo": 1.3772413793103448, "sensibilidad": 0.5954970133251647, "precision": 0.833976833976834, "especificidad": 0.7862468931234465, "f1": 0.6948440711285855, "accuracy": 0.6635467980295566, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4593103448275862}, {"umbral": 0.71, "n": 20300, "TN": 5774, "FP": 1468, "FN": 5440, "TP": 7618, "costo": 1.412216748768473, "sensibilidad": 0.5833971511716955, "precision": 0.838432753686991, "especificidad": 0.7972935653134493, "f1": 0.6880419075144508, "accuracy": 0.6597044334975369, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4475862068965517}, {"umbral": 0.72, "n": 20300, "TN": 5861, "FP": 1381, "FN": 5659, "TP": 7399, "costo": 1.461871921182266, "sensibilidad": 0.5666258232501149, "precision": 0.8427107061503417, "especificidad": 0.8093068213200774, "f1": 0.6776261562414141, "accuracy": 0.6532019704433497, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.432512315270936}, {"umbral": 0.73, "n": 20300, "TN": 5960, "FP": 1282, "FN": 5913, "TP": 7145, "costo": 1.5195566502463054, "sensibilidad": 0.5471741461173227, "precision": 0.8478699418535659, "especificidad": 0.8229770781552057, "f1": 0.6651151966488248, "accuracy": 0.6455665024630541, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.4151231527093596}, {"umbral": 0.74, "n": 20300, "TN": 6070, "FP": 1172, "FN": 6217, "TP": 6841, "costo": 1.5890147783251232, "sensibilidad": 0.5238933986827998, "precision": 0.8537376762760515, "especificidad": 0.8381662524164596, "f1": 0.6493284609178491, "accuracy": 0.6360098522167488, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3947290640394089}, {"umbral": 0.75, "n": 20300, "TN": 6159, "FP": 1083, "FN": 6475, "TP": 6583, "costo": 1.648177339901478, "sensibilidad": 0.5041353959258692, "precision": 0.8587268458126793, "especificidad": 0.8504556752278376, "f1": 0.635302065238371, "accuracy": 0.6276847290640394, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3776354679802955}, {"umbral": 0.76, "n": 20300, "TN": 6244, "FP": 998, "FN": 6687, "TP": 6371, "costo": 1.696206896551724, "sensibilidad": 0.4879001378465308, "precision": 0.8645677839598317, "especificidad": 0.8621927644297156, "f1": 0.6237822489841875, "accuracy": 0.6214285714285714, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3630049261083743}, {"umbral": 0.77, "n": 20300, "TN": 6330, "FP": 912, "FN": 6930, "TP": 6128, "costo": 1.7518226600985225, "sensibilidad": 0.4692908561801194, "precision": 0.8704545454545455, "especificidad": 0.8740679370339686, "f1": 0.6098119215842372, "accuracy": 0.6136945812807881, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3467980295566502}, {"umbral": 0.78, "n": 20300, "TN": 6425, "FP": 817, "FN": 7179, "TP": 5879, "costo": 1.8084729064039409, "sensibilidad": 0.4502220860775003, "precision": 0.8779868578255675, "especificidad": 0.8871858602595968, "f1": 0.5952212210185279, "accuracy": 0.6061083743842365, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3298522167487684}, {"umbral": 0.79, "n": 20300, "TN": 6491, "FP": 751, "FN": 7378, "TP": 5680, "costo": 1.8542364532019704, "sensibilidad": 0.434982386276612, "precision": 0.883221893951174, "especificidad": 0.8962993648163491, "f1": 0.5828929139514598, "accuracy": 0.5995566502463054, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3167980295566502}, {"umbral": 0.8, "n": 20300, "TN": 6544, "FP": 698, "FN": 7564, "TP": 5494, "costo": 1.89743842364532, "sensibilidad": 0.4207382447541737, "precision": 0.8872739018087855, "especificidad": 0.903617785142226, "f1": 0.5708051948051948, "accuracy": 0.5930049261083744, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.3050246305418719}, {"umbral": 0.81, "n": 20300, "TN": 6606, "FP": 636, "FN": 7785, "TP": 5273, "costo": 1.948817733990148, "sensibilidad": 0.4038137540205238, "precision": 0.8923675748857675, "especificidad": 0.912178956089478, "f1": 0.556018347656456, "accuracy": 0.5851724137931035, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.2910837438423645}, {"umbral": 0.8200000000000001, "n": 20300, "TN": 6665, "FP": 577, "FN": 7977, "TP": 5081, "costo": 1.9932019704433497, "sensibilidad": 0.3891101240618778, "precision": 0.8980205019441498, "especificidad": 0.9203258768296052, "f1": 0.5429578969865356, "accuracy": 0.5786206896551724, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.2787192118226601}, {"umbral": 0.8300000000000001, "n": 20300, "TN": 6710, "FP": 532, "FN": 8204, "TP": 4854, "costo": 2.0468965517241378, "sensibilidad": 0.3717261448920202, "precision": 0.9012253991830672, "especificidad": 0.9265396299364816, "f1": 0.5263500325309044, "accuracy": 0.5696551724137932, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.2653201970443349}, {"umbral": 0.84, "n": 20300, "TN": 6781, "FP": 461, "FN": 8532, "TP": 4526, "costo": 2.1241871921182267, "sensibilidad": 0.3466074437126665, "precision": 0.9075596551032684, "especificidad": 0.9363435515051092, "f1": 0.5016348018841784, "accuracy": 0.5569950738916256, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.2456650246305418}, {"umbral": 0.85, "n": 20300, "TN": 6920, "FP": 322, "FN": 9301, "TP": 3757, "costo": 2.3067487684729064, "sensibilidad": 0.2877163424720478, "precision": 0.9210590831086052, "especificidad": 0.9555371444352388, "f1": 0.4384664760459824, "accuracy": 0.525960591133005, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.200935960591133}, {"umbral": 0.86, "n": 20300, "TN": 7025, "FP": 217, "FN": 9870, "TP": 3188, "costo": 2.4417241379310344, "sensibilidad": 0.2441415224383519, "precision": 0.9362701908957416, "especificidad": 0.9700359016846176, "f1": 0.3872927170017615, "accuracy": 0.5031034482758621, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.1677339901477832}, {"umbral": 0.87, "n": 20300, "TN": 7067, "FP": 175, "FN": 10147, "TP": 2911, "costo": 2.507881773399015, "sensibilidad": 0.2229284729667636, "precision": 0.9432922877511342, "especificidad": 0.9758354045843688, "f1": 0.360629335976214, "accuracy": 0.4915270935960591, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.1520197044334975}, {"umbral": 0.88, "n": 20300, "TN": 7090, "FP": 152, "FN": 10306, "TP": 2752, "costo": 2.545911330049261, "sensibilidad": 0.2107520294072599, "precision": 0.9476584022038568, "especificidad": 0.9790113228389948, "f1": 0.3448189449943616, "accuracy": 0.4848275862068965, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.1430541871921182}, {"umbral": 0.89, "n": 20300, "TN": 7109, "FP": 133, "FN": 10539, "TP": 2519, "costo": 2.6023645320197044, "sensibilidad": 0.1929085618011946, "precision": 0.9498491704374056, "especificidad": 0.9816349074841204, "f1": 0.3206874602164226, "accuracy": 0.4742857142857143, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.1306403940886699}, {"umbral": 0.9, "n": 20300, "TN": 7132, "FP": 110, "FN": 10879, "TP": 2179, "costo": 2.684975369458128, "sensibilidad": 0.1668708837494256, "precision": 0.9519440803844472, "especificidad": 0.9848108257387462, "f1": 0.2839642926956408, "accuracy": 0.4586699507389162, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.1127586206896551}, {"umbral": 0.91, "n": 20300, "TN": 7165, "FP": 77, "FN": 11442, "TP": 1616, "costo": 2.8220197044334974, "sensibilidad": 0.1237555521519375, "precision": 0.954518606024808, "especificidad": 0.9893675780171224, "f1": 0.2191037895735882, "accuracy": 0.4325615763546798, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0833990147783251}, {"umbral": 0.92, "n": 20300, "TN": 7187, "FP": 55, "FN": 11905, "TP": 1153, "costo": 2.934975369458128, "sensibilidad": 0.0882983611579108, "precision": 0.9544701986754968, "especificidad": 0.9924054128693732, "f1": 0.1616430674330576, "accuracy": 0.4108374384236453, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0595073891625615}, {"umbral": 0.93, "n": 20300, "TN": 7209, "FP": 33, "FN": 12342, "TP": 716, "costo": 3.041527093596059, "sensibilidad": 0.0548322867207841, "precision": 0.9559412550066756, "especificidad": 0.9954432477216238, "f1": 0.1037155066270732, "accuracy": 0.3903940886699507, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0368965517241379}, {"umbral": 0.94, "n": 20300, "TN": 7219, "FP": 23, "FN": 12547, "TP": 511, "costo": 3.091527093596059, "sensibilidad": 0.0391330984836881, "precision": 0.9569288389513108, "especificidad": 0.9968240817453742, "f1": 0.0751912889935256, "accuracy": 0.3807881773399015, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0263054187192118}, {"umbral": 0.95, "n": 20300, "TN": 7228, "FP": 14, "FN": 12787, "TP": 271, "costo": 3.150197044334975, "sensibilidad": 0.0207535610353806, "precision": 0.950877192982456, "especificidad": 0.9980668323667496, "f1": 0.0406205501011766, "accuracy": 0.3694088669950739, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.014039408866995}, {"umbral": 0.96, "n": 20300, "TN": 7242, "FP": 0, "FN": 13046, "TP": 12, "costo": 3.2133004926108373, "sensibilidad": 0.0009189768724153, "precision": 1.0, "especificidad": 1.0, "f1": 0.0018362662586074, "accuracy": 0.3573399014778325, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0005911330049261}, {"umbral": 0.97, "n": 20300, "TN": 7242, "FP": 0, "FN": 13058, "TP": 0, "costo": 3.216256157635468, "sensibilidad": 0.0, "precision": 0.0, "especificidad": 1.0, "f1": 0.0, "accuracy": 0.3567487684729064, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0}, {"umbral": 0.98, "n": 20300, "TN": 7242, "FP": 0, "FN": 13058, "TP": 0, "costo": 3.216256157635468, "sensibilidad": 0.0, "precision": 0.0, "especificidad": 1.0, "f1": 0.0, "accuracy": 0.3567487684729064, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0}, {"umbral": 0.99, "n": 20300, "TN": 7242, "FP": 0, "FN": 13058, "TP": 0, "costo": 3.216256157635468, "sensibilidad": 0.0, "precision": 0.0, "especificidad": 1.0, "f1": 0.0, "accuracy": 0.3567487684729064, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0}, {"umbral": 1.0, "n": 20300, "TN": 7242, "FP": 0, "FN": 13058, "TP": 0, "costo": 3.216256157635468, "sensibilidad": 0.0, "precision": 0.0, "especificidad": 1.0, "f1": 0.0, "accuracy": 0.3567487684729064, "auc": 0.7600365473709823, "pr_auc": 0.8494056812611969, "brier": 0.1866782023508926, "fraccion_alertas": 0.0}], "streamlit_url": null}</script>
+<script id="model-engine">
+/* Motor portable: misma normalización, one-hot y coeficientes que el Pipeline Python. */
+function predictPortable(input, model) {
+  let z = model.intercepto;
+  for (const [col, weights] of Object.entries(model.pesos_categoricos)) {
+    const raw = input[col];
+    let text = raw == null ? 'Desconocido' : String(raw).trim();
+    if (model.marcadores.includes(text.toLowerCase())) text = 'Desconocido';
+    z += Object.prototype.hasOwnProperty.call(weights, text) ? weights[text] : 0;
+  }
+  for (const [col, weight] of Object.entries(model.pesos_binarios)) {
+    const text = String(input[col] == null ? '' : input[col]).trim().toUpperCase();
+    z += weight * (text === 'SI' ? 1 : text === 'NO' ? 0 : -1);
+  }
+  return 1 / (1 + Math.exp(-z));
+}
+</script>
+<script>
+'use strict';
+// Los datos se insertan al generar el HTML: no hay fetch, telemetría ni almacenamiento.
+const D = JSON.parse(document.getElementById('payload').textContent);
+const $ = (id) => document.getElementById(id);
+const fmt = (x, n=2) => Number(x).toLocaleString('es-CO', {minimumFractionDigits:n, maximumFractionDigits:n});
+const pct = x => fmt(100*x,1) + '%';
+const slides = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+slides.forEach((s,i) => {const op=document.createElement('option');op.value=i;op.textContent=s.dataset.title;$('jump').appendChild(op)});
+function showSlide(i) {
+  current = Math.max(0, Math.min(slides.length-1, i));
+  slides.forEach((s,j) => {s.hidden = j !== current});
+  $('counter').textContent = String(current+1).padStart(2,'0')+' / 08';
+  $('prev').disabled = current === 0; $('next').disabled = current === slides.length-1;
+  $('jump').value=current; $('progress').style.width=((current+1)/slides.length*100)+'%';
+  history.replaceState(null, '', '#'+(current+1)); window.scrollTo(0,0);
+}
+$('prev').onclick=()=>showSlide(current-1);$('next').onclick=()=>showSlide(current+1);
+$('jump').onchange=e=>showSlide(Number(e.target.value));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showSlide(Number(b.dataset.go)));
+document.addEventListener('keydown',e=>{
+  if (['INPUT','SELECT','TEXTAREA','BUTTON','SUMMARY'].includes(document.activeElement.tagName)) return;
+  if(e.key==='ArrowRight'){e.preventDefault();showSlide(current+1)}
+  if(e.key==='ArrowLeft'){e.preventDefault();showSlide(current-1)}
+});
+showSlide(Number(location.hash.slice(1) || 1)-1);
+// Crear elementos con textContent evita interpretar categorías de datos como HTML.
+function table(container, rows, columns) {
+  const t=document.createElement('table'), head=t.createTHead().insertRow();
+  columns.forEach(([key,label])=>{const th=document.createElement('th');th.textContent=label;head.appendChild(th)});
+  const body=t.createTBody(); rows.forEach(r=>{const tr=body.insertRow();columns.forEach(([key])=>{const td=tr.insertCell();td.textContent=typeof r[key]==='number'?fmt(r[key],Number.isInteger(r[key])?0:4):r[key]})});
+  container.replaceChildren(t);
+}
+function downloadCsv(rows, filename) {
+  const keys=Object.keys(rows[0]);const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
+  const csv='\ufeff'+[keys,...rows.map(r=>keys.map(k=>r[k]))].map(r=>r.map(quote).join(',')).join('\n');
+  const u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a');a.href=u;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+function svgElement(tag, attrs={}, text) {
+  const e=document.createElementNS('http://www.w3.org/2000/svg',tag);
+  Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e;
+}
+function bars(target, rows, labelKey, valueKey, sdKey) {
+  const w=700,left=230,right=105,line=32,height=rows.length*line+50;
+  const max=Math.max(...rows.map(r=>r[valueKey]+(sdKey?r[sdKey]:0)))*1.06 || 1;
+  const scale=(w-left-right)/max;
+  const svg=svgElement('svg',{viewBox:'0 0 '+w+' '+height,role:'img','aria-label':'Gráfico de barras: '+valueKey});
+  rows.forEach((r,i)=>{
+    const y=20+i*line,v=r[valueKey],end=left+v*scale;
+    svg.appendChild(svgElement('text',{x:left-12,y:y+16,'text-anchor':'end',fill:'#132f3b','font-size':13},r[labelKey]));
+    svg.appendChild(svgElement('rect',{x:left,y:y+2,width:v*scale,height:20,rx:2,fill:'#237f73'}));
+    if(sdKey){const sd=r[sdKey]*scale;svg.appendChild(svgElement('line',{x1:end-sd,x2:end+sd,y1:y+12,y2:y+12,stroke:'#132f3b','stroke-width':2}));[end-sd,end+sd].forEach(x=>svg.appendChild(svgElement('line',{x1:x,x2:x,y1:y+7,y2:y+17,stroke:'#132f3b'})))}
+    svg.appendChild(svgElement('text',{x:end+10+(sdKey?r[sdKey]*scale:0),y:y+16,fill:'#132f3b','font-size':13},fmt(v,Number.isInteger(v)?0:4)));
+  });
+  svg.appendChild(svgElement('text',{x:left,y:height-5,fill:'#526870','font-size':12},'0 · '+(sdKey?'Costo medio; barras de error = desviación entre folds':'Número de filas')));
+  target.replaceChildren(svg);
+}
+function refreshData() {
+  table($('data-table'),D.agregados[$('group').value],[['categoria','Categoría'],['registros','Filas']]);
+  $('data-chart').innerHTML='<div class="empty">Pulsa «Generar gráfico» para visualizar la tabla seleccionada.</div>';
+}
+$('group').onchange=refreshData;
+$('play-data').onclick=()=>bars($('data-chart'),D.agregados[$('group').value],'categoria','registros');
+$('download-data').onclick=()=>downloadCsv(D.agregados[$('group').value],'registros_agregados.csv');
+$('play-models').onclick=()=>bars($('models-chart'),D.resultados.comparacion_cv,'modelo','costo_cv','sd_costo');
+$('download-models').onclick=()=>downloadCsv(D.resultados.comparacion_cv,'comparacion_cv.csv');
+// La curva usa solo la reserva de selección; el test queda fijo.
+function refreshThreshold() {
+  const threshold=Number($('threshold').value);
+  const r=D.curva.reduce((a,b)=>Math.abs(a.umbral-threshold)<Math.abs(b.umbral-threshold)?a:b);
+  $('threshold-value').textContent=fmt(threshold);$('val-recall').textContent=pct(r.sensibilidad);
+  $('val-alerts').textContent=pct(r.fraccion_alertas);$('val-cost').textContent=fmt(r.costo,4);
+  const w=620,h=230,l=50,b=35,t=15,max=Math.max(...D.curva.map(x=>x.costo))*1.05;
+  const x=v=>l+v*(w-l-15),y=v=>h-b-v/max*(h-t-b);
+  const svg=svgElement('svg',{viewBox:'0 0 '+w+' '+h,role:'img','aria-label':'Costo de validación frente al umbral'});
+  [0,max/2,max].forEach(v=>{svg.appendChild(svgElement('line',{x1:l,x2:w-15,y1:y(v),y2:y(v),stroke:'#d6dfd8'}));svg.appendChild(svgElement('text',{x:l-8,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'#526870'},fmt(v,2)))});
+  svg.appendChild(svgElement('polyline',{points:D.curva.map(r=>x(r.umbral)+','+y(r.costo)).join(' '),fill:'none',stroke:'#237f73','stroke-width':3}));
+  svg.appendChild(svgElement('line',{x1:x(threshold),x2:x(threshold),y1:t,y2:h-b,stroke:'#a64e21','stroke-dasharray':'5 4'}));
+  [0,.25,.5,.75,1].forEach(v=>svg.appendChild(svgElement('text',{x:x(v),y:h-12,'text-anchor':'middle','font-size':12,fill:'#526870'},fmt(v))));
+  $('threshold-chart').replaceChildren(svg);
+}
+$('threshold').oninput=refreshThreshold;refreshThreshold();
+// Formulario: valores ficticios, normalización idéntica al artefacto exportado.
+D.modelo.ejemplos.forEach((e,i)=>{const op=document.createElement('option');op.value=i;op.textContent=e.nombre;$('example').appendChild(op)});
+function buildFields() {
+  const base=D.modelo.ejemplos[Number($('example').value)].valores;
+  $('main-fields').replaceChildren();$('other-fields').replaceChildren();
+  Object.keys(base).forEach(col=>{
+    const block=document.createElement('div'),label=document.createElement('label'),select=document.createElement('select');
+    label.textContent=D.modelo.nombres[col];label.htmlFor=col;select.id=col;select.name=col;
+    const cats=D.modelo.pesos_categoricos[col];
+    const opts=cats?Array.from(new Set([...Object.keys(cats),'Desconocido'])).sort():['NO','SI','Desconocido'];
+    opts.forEach(v=>{const op=document.createElement('option');op.value=v;op.textContent=v;select.appendChild(op)});
+    select.value=base[col];block.append(label,select);
+    (['SEXO','CURSO_DE_VIDA'].includes(col)||col.startsWith('SITIO')?$('main-fields'):$('other-fields')).appendChild(block);
+    select.onchange=()=>{$('prediction-result').innerHTML='<p>Entradas modificadas</p><b>—</b><p class="small">Vuelve a ejecutar para actualizar el resultado.</p>'};
+  });
+  $('prediction-result').innerHTML='<p>Resultado del modelo</p><b>—</b><p class="small">Pulsa ejecutar para calcular una nueva probabilidad.</p>';
+}
+$('example').onchange=buildFields;buildFields();
+$('prediction-form').onsubmit=e=>{
+  e.preventDefault();const input=Object.fromEntries(new FormData(e.target));const p=predictPortable(input,D.modelo);
+  const title=document.createElement('p');title.textContent='P(Alcohol simulado)';
+  const num=document.createElement('b');num.textContent=pct(p);
+  const category=document.createElement('p');category.className='class';category.textContent=p>=D.modelo.umbral?'Alcohol simulado':'Otras SPA simuladas';
+  const meter=document.createElement('meter');meter.min=0;meter.max=1;meter.value=p;meter.setAttribute('aria-label','Probabilidad de Alcohol simulado');
+  const note=document.createElement('p');note.className='small';note.textContent='Calculado ahora · umbral fijo '+fmt(D.modelo.umbral)+'. No es certeza clínica.';
+  $('prediction-result').replaceChildren(title,num,category,meter,note);
+};
+if(D.streamlit_url) {
+  const a=document.createElement('a');a.href=D.streamlit_url;a.target='_blank';a.rel='noopener';a.className='button';a.textContent='Abrir aplicación Streamlit ↗';$('app-link').appendChild(a);
+} else {
+  const p=document.createElement('p');p.className='small';p.textContent='Streamlit: aplicación lista en el repositorio; URL pública pendiente de activación de la cuenta. La demostración HTML funciona aquí.';$('app-link').appendChild(p);
+}
+</script>
+</body></html>
+

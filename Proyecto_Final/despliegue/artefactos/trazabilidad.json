@@ -1,0 +1,20 @@
+{
+  "etiqueta_simulada": true,
+  "base": "../cuaderno_PFI.ipynb",
+  "sha256_notebook": "07429040bb9c53ce84c6cd5707f69c8fe0f99094f8782ea51b295ddb872fb09b",
+  "sha256_csv": "468301ee4e637df11eb825136b9abe03300a947d0ce6bb2bfba48356c5cd5d85",
+  "n_ajuste": 60900,
+  "n_validacion": 20300,
+  "test_consultado_en_empaquetado": false,
+  "max_error_costo_validacion": 2.220446049250313e-16,
+  "max_error_paridad_python": 1.6653345369377348e-16,
+  "casos_paridad": 105,
+  "sha256_pipeline": "4142c01c1f865b5c643a872b7668d20415a76711771bbeb33886601eba5cb182",
+  "versiones": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0"
+  },
+  "python": "3.12.14"
+}

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alcohol simulado · Presentación EAN</title>
+<meta name="description" content="Demostración académica CRISP-DM. Alcohol es una etiqueta simulada.">
+<style>
+/* Diseño sin fuentes, bibliotecas ni servicios externos: funciona también sin conexión. */
+:root{--ink:#132f3b;--teal:#237f73;--lime:#d2ed9f;--paper:#f5f6f0;--muted:#526870;--line:#d6dfd8;--warm:#a64e21}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 Arial,sans-serif}
+button,input,select{font:inherit}button,a.button{cursor:pointer;border:1px solid var(--ink);padding:11px 18px;background:var(--ink);color:white;border-radius:7px;text-decoration:none;display:inline-block;font-weight:600}
+button:hover,a.button:hover{background:var(--teal)}button:disabled{opacity:.35;cursor:default}
+button.secondary,a.secondary{background:transparent;color:var(--ink)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b57c22;outline-offset:3px}
+a{color:var(--teal)}header{padding:17px 4vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:14px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:13px}.brand span{font-weight:400;letter-spacing:0;margin-left:15px}
+.badge{font-size:12px;background:#e5eddf;border:1px solid #bccdb4;padding:6px 12px;border-radius:20px}
+.notice{padding:9px 4vw;background:#e9efe3;font-size:13px;border-bottom:1px solid #cfdcc8}
+main{max-width:1400px;margin:auto}.slide{padding:35px 5vw 100px;min-height:calc(100vh - 125px)}.slide[hidden]{display:none}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--teal);margin:0 0 17px}
+h1,h2,h3,p{margin-top:0}h1{font-size:clamp(42px,5.7vw,82px);letter-spacing:-.055em;line-height:1.02;margin-bottom:26px;font-weight:700}
+h2{font-size:clamp(31px,3.6vw,50px);line-height:1.08;letter-spacing:-.04em;margin-bottom:20px}h3{font-size:22px;line-height:1.25}
+.lead{font-size:20px;color:var(--muted);max-width:820px}.small{font-size:13px;color:var(--muted)}.caption{font-size:14px;color:var(--muted);margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:start}.hero{grid-template-columns:1.15fr .85fr;align-items:center;gap:55px}
+.visual{background:var(--ink);color:#f5f6f0;min-height:365px;padding:34px;border-radius:8px;position:relative;overflow:hidden}.visual h3{font-size:25px}.visual .small{color:#bad1d1}.visual svg{width:100%;height:185px}
+.number{font-size:62px;line-height:1.1;letter-spacing:-.05em;font-weight:700}.accent{color:var(--lime)}
+.rule{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:26px 0}.stat{border-top:3px solid var(--teal);padding-top:12px}.stat b{display:block;font-size:37px;letter-spacing:-.04em}.stat span{font-size:14px;color:var(--muted)}
+.table-wrap{overflow:auto;max-height:370px;border:1px solid var(--line);border-radius:7px;background:white}
+table{border-collapse:collapse;width:100%;font-size:14px;text-align:left}th,td{padding:12px 14px;border-bottom:1px solid #e1e7e2;white-space:nowrap}
+th{position:sticky;top:0;background:#e8efe9;color:var(--ink);font-weight:700}tbody tr:hover{background:#f1f6ef}
+.panel{background:white;border:1px solid var(--line);padding:22px;border-radius:8px}
+.warning{border-left:4px solid var(--warm);padding:15px 20px;background:#f7eadc;margin:20px 0}
+.flow{display:flex;margin:30px 0;gap:4px}.flow div{padding:24px;background:var(--ink);color:white;flex:1}.flow div:first-child{flex:3;background:var(--teal)}.flow b{display:block;font-size:40px;letter-spacing:-.04em}.flow span{font-size:14px}
+.steps{list-style:none;padding:0;counter-reset:step}.steps li{counter-increment:step;border-top:1px solid var(--line);padding:16px 0 16px 40px;position:relative}.steps li:before{content:"0" counter(step);position:absolute;left:0;color:var(--teal);font-weight:700}
+.chart{min-height:230px;padding:14px 0}.chart svg{width:100%;display:block}.empty{border:1px dashed #a8bdb4;padding:35px;text-align:center;color:var(--muted);border-radius:6px}
+.range-label{display:flex;justify-content:space-between;font-weight:700}input[type=range]{width:100%;accent-color:var(--teal);margin:18px 0}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}select,input[type=url]{width:100%;padding:9px;border:1px solid #9fb5ac;border-radius:5px;background:white;color:var(--ink)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}.fields label{font-size:13px}
+details{margin:15px 0}summary{cursor:pointer;font-weight:600;padding:8px 0}pre{white-space:pre-wrap;font-size:12px;max-height:240px;overflow:auto;background:#eaf0eb;padding:14px}
+.result{background:var(--ink);color:white;padding:28px;border-radius:8px}.result .small{color:#c4d5d6}.result b{display:block;font-size:50px;letter-spacing:-.04em}.result .class{color:var(--lime);font-size:23px;margin:12px 0}
+meter{width:100%;height:25px}.confusion{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:20px 0}.confusion div{padding:20px;background:#e0ebe7}.confusion b{display:block;font-size:32px}.confusion .err{background:#f4e3d4}
+footer{position:fixed;bottom:0;width:100%;background:rgba(245,246,240,.97);border-top:1px solid var(--line);padding:11px 4vw;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:4}.nav{display:flex;gap:9px;align-items:center}.nav button{padding:8px 14px}.counter{font-variant-numeric:tabular-nums;font-size:13px;min-width:58px;text-align:center}.progress{position:fixed;bottom:0;left:0;height:3px;background:var(--teal);transition:width .2s}
+#jump{width:auto;max-width:200px;font-size:13px}#status{font-size:12px;color:var(--muted)}.hidden{display:none}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr;gap:20px}.slide{padding:24px 6vw 100px}.visual{min-height:280px}.brand span{display:none}.stats{gap:12px}.stat b{font-size:26px}.stat span{font-size:12px}.flow div{padding:12px}.flow b{font-size:28px}.flow span{font-size:12px}.fields{grid-template-columns:1fr 1fr}footer{padding:10px 4vw}.footer-note{display:none}header{padding:14px 5vw}.notice{padding:8px 5vw}.badge{font-size:10px}#jump{max-width:125px}.number{font-size:50px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{header,footer,.notice,.actions,.progress,button{display:none!important}.slide[hidden],.slide{display:block!important;min-height:0;page-break-after:always;padding:20px}.grid,.hero{grid-template-columns:1fr 1fr}.table-wrap{max-height:none;overflow:visible}.chart{min-height:0}body{font-size:12px}h1{font-size:45px}h2{font-size:30px}.small{font-size:11px}}
+</style>
+</head>
+<body>
+<header><div class="brand">EAN <span>Machine Learning I / Proyecto Final Integrador</span></div><span class="badge">CRISP-DM · SEMILLA 2026</span></header>
+<div class="notice"><strong>Alcohol es una etiqueta simulada.</strong> Prototipo académico; no es diagnóstico ni riesgo clínico validado.</div>
+<main>
+<section class="slide" id="s1" data-title="Propósito">
+<p class="kicker">01 / Comprensión del negocio</p>
+<div class="grid hero"><div><h1>Explorar la<br>clasificación.<br><span style="color:var(--teal)">Reconocer<br>sus límites.</span></h1>
+<p class="lead">Un experimento reproducible sobre registros de consumo de sustancias en Bogotá.</p>
+<p class="small">Tema del proyecto: identificación temprana del consumo perjudicial de alcohol. El objetivo disponible es simulado.</p>
+<div class="actions"><button data-go="6">▶ Probar el modelo</button><button class="secondary" data-go="1">Iniciar recorrido →</button></div></div>
+<div class="visual"><p class="kicker accent">LA PREGUNTA</p><h3>¿Cuándo una clasificación<br>ayuda a decidir?</h3>
+<svg viewBox="0 0 420 180" role="img" aria-label="Esquema conceptual de una frontera de decisión, no datos observados"><path d="M20 145 H400 M20 145 V15" stroke="#799ca5" fill="none"/><path d="M25 140 C130 140 130 35 225 35 S320 20 395 20" stroke="#d2ed9f" stroke-width="4" fill="none"/><line x1="185" y1="15" x2="185" y2="145" stroke="#73c5b8" stroke-dasharray="5 5"/><text x="199" y="126" fill="#c5d7d9" font-size="14">decisión ≠ probabilidad</text></svg>
+<p class="small">La demostración conecta datos, validación y costo del error. Una AUC aceptable no garantiza utilidad operativa.</p></div></div>
+<p class="small rule">Oscar Andrés Ramos Villanueva · Alvaro José Cabezas Jiménez · Nelsón Fabián Manios Ascencio<br>Universidad EAN · Sustentación académica</p>
+</section>
+<section class="slide" id="s2" data-title="Datos" hidden>
+<p class="kicker">02 / Comprensión de los datos</p><h2>Registros reales.<br>Etiqueta construida.</h2>
+<div class="stats"><div class="stat"><b>101.500</b><span>filas del CSV versionado</span></div><div class="stat"><b>21 → 14</b><span>columnas crudas → predictores</span></div><div class="stat"><b>185</b><span>variables tras la codificación</span></div></div>
+<div class="grid"><div><p>La fuente es <strong>SDS / VESPA</strong>. Alcohol se genera con reglas y aleatoriedad; no está observado en el archivo original.</p>
+<label for="group">Explorar registros por</label><select id="group"><option value="ANO">Año</option><option value="NOMBRELOCALIDADRESIDENCIA">Localidad</option><option value="CURSO_DE_VIDA">Curso de vida</option></select>
+<div class="actions"><button id="play-data">▶ Generar gráfico</button><button id="download-data" class="secondary">Descargar tabla</button></div>
+<div class="table-wrap" id="data-table">__DATA_TABLE__</div></div><div><div id="data-chart" class="chart"><div class="empty">Pulsa «Generar gráfico» para visualizar la tabla.</div></div>
+<p class="caption">Filas ≠ personas únicas. La cobertura de reportes no mide prevalencia ni riesgo poblacional. El año 2026 puede estar incompleto.</p></div></div>
+</section>
+<section class="slide" id="s3" data-title="Experimento" hidden>
+<p class="kicker">03 / Preparación y modelado</p><h2>Separar antes de aprender.</h2>
+<p class="lead">El conjunto de prueba queda fuera del ajuste, la selección del modelo y la selección del umbral.</p>
+<div class="flow"><div><b>60 %</b><span>60.900 filas / desarrollo<br>GridSearchCV · 5 pliegues</span></div><div><b>20 %</b><span>20.300 / validación<br>elección del umbral</span></div><div><b>20 %</b><span>20.300 / prueba<br>evaluación final</span></div></div>
+<div class="grid"><ol class="steps"><li>Normalizar y representar faltantes dentro del Pipeline.</li><li>Aprender categorías one-hot solo con entrenamiento.</li><li>Comparar baseline y tres familias bajo los mismos folds.</li></ol>
+<div class="panel"><h3>Un costo explícito</h3><p style="font-size:24px">Costo = (5 FN + FP) / n</p><p class="small">Alcohol = 1. La relación 5:1 es un supuesto académico, no una tarifa ni una prioridad oficial.</p><p class="small">La versión corregida conserva las tres filas intersexuales y elimina la imputación aleatoria. Por eso no replica las 101.497 filas / 176 columnas del Colab.</p></div></div>
+<details><summary>Ver código del Pipeline</summary><pre>__PIPELINE_CODE__</pre></details>
+</section>
+<section class="slide" id="s4" data-title="Modelos" hidden>
+<p class="kicker">04 / Comparación experimental</p><h2>Cuatro referencias.<br>Una misma evaluación.</h2><p class="lead">La Regresión Logística obtiene el menor costo medio de validación cruzada bajo el supuesto fijado.</p>
+<div class="table-wrap">__CV_TABLE__</div>
+<div class="actions"><button id="play-models">▶ Comparar modelos</button><button id="download-models" class="secondary">Descargar tabla</button></div>
+<div id="models-chart" class="chart"><div class="empty">Pulsa «Comparar modelos» para mostrar la media y la desviación del costo.</div></div>
+<p class="caption">Media y desviación muestral entre cinco pliegues. La CV participa en la selección; la evaluación independiente se informa en prueba.</p>
+</section>
+<section class="slide" id="s5" data-title="Umbral" hidden>
+<p class="kicker">05 / Evaluación de la decisión</p><h2>El umbral cambia<br>los errores y las alertas.</h2>
+<div class="grid"><div><p>Explora resultados precalculados en la reserva de validación. Esta interacción no vuelve a seleccionar el modelo ni consulta prueba.</p>
+<label class="range-label" for="threshold">Umbral exploratorio <output id="threshold-value">0,13</output></label>
+<input id="threshold" type="range" min="0" max="1" step="0.01" value="0.13">
+<div class="stats"><div class="stat"><b id="val-recall">—</b><span>sensibilidad</span></div><div class="stat"><b id="val-alerts">—</b><span>clasificados Alcohol</span></div><div class="stat"><b id="val-cost">—</b><span>costo medio</span></div></div>
+<div class="warning">El umbral oficial permanece en <strong>0,13</strong>. El de 0,62 propuesto en Colab se eligió usando prueba y no se utiliza como resultado validado.</div></div>
+<div><div id="threshold-chart" class="chart"></div><div class="table-wrap">__THRESHOLD_TABLE__</div><p class="caption">Todas las cifras de esta pantalla corresponden a validación.</p></div></div>
+</section>
+<section class="slide" id="s6" data-title="Prueba final" hidden>
+<p class="kicker">06 / Evaluación final reservada</p><h2>Discriminar no equivale<br>a priorizar.</h2>
+<div class="stats"><div class="stat"><b>__AUC__</b><span>ROC-AUC en prueba</span></div><div class="stat"><b>__ALERTS__</b><span>registros clasificados como Alcohol</span></div><div class="stat"><b>0,13</b><span>umbral fijado antes de prueba</span></div></div>
+<div class="grid"><div><h3>Prueba · matriz de confusión</h3><div class="confusion">
+<div><b>__TN__</b>Verdaderos negativos</div><div class="err"><b>__FP__</b>Falsos positivos</div>
+<div class="err"><b>__FN__</b>Falsos negativos</div><div><b>__TP__</b>Verdaderos positivos</div></div>
+<p class="small">Clase positiva: Alcohol simulado. Son registros, no diagnósticos ni pacientes rescatados.</p></div>
+<div><div class="table-wrap">__TEST_TABLE__</div><div class="warning"><strong>No se demuestra utilidad operativa.</strong><br>La clasificación casi universal impide priorizar. El intervalo del ahorro de costo frente a Dummy incluye cero.</div>
+<p class="small">IC 95 % del ahorro por registro: __INTERVAL__. Bootstrap pareado de predicciones ya calculadas; no incluye otras semillas ni validez clínica.</p></div></div>
+</section>
+<section class="slide" id="s7" data-title="Demostración" hidden>
+<p class="kicker">07 / Modelo funcionando</p><h2>Prueba un ejemplo ficticio.</h2><p class="lead">La misma regresión se ejecuta aquí, en tu navegador, sin conexión. Streamlit utiliza el Pipeline de scikit-learn.</p>
+<div class="grid"><div><label for="example">Elegir escenario inventado</label><select id="example"></select><form id="prediction-form">
+<div class="fields" id="main-fields"></div><details><summary>Otros predictores del escenario</summary><div class="fields" id="other-fields"></div></details>
+<button type="submit">▶ Ejecutar predicción</button></form><p class="caption">No introduzcas información de personas reales. No se envían ni almacenan los valores del formulario.</p></div>
+<div><div id="prediction-result" class="result" aria-live="polite"><p>Resultado del modelo</p><b>—</b><p class="small">Pulsa ejecutar para calcular una nueva probabilidad.</p></div>
+<p class="caption">Probabilidad de una etiqueta simulada, no probabilidad de padecer un trastorno. Las reglas incorporan atributos sensibles; no constituyen evidencia causal.</p>
+<details><summary>Cómo se calcula</summary><p>Se normalizan categorías y faltantes como en Python. Se suman los coeficientes del one-hot y de los seis sitios; se aplica la función logística y el umbral fijo.</p><pre>P(Alcohol simulado) = 1 / (1 + exp(−z))
+z = intercepto + suma de contribuciones
+Clase Alcohol si P ≥ 0,13</pre></details></div></div>
+</section>
+<section class="slide" id="s8" data-title="Límites y entrega" hidden>
+<p class="kicker">08 / Despliegue, límites y gobernanza</p><h2>Un prototipo demostrable.<br>Una conclusión responsable.</h2>
+<div class="grid"><ol class="steps"><li><strong>Qué demuestra:</strong> reproducibilidad, comparación de modelos e inferencia interactiva.</li><li><strong>Qué no demuestra:</strong> diagnóstico, prevención, ahorro institucional o pacientes atendidos.</li><li><strong>Qué falta:</strong> etiquetas observadas, unidad de análisis verificable, validación temporal y por persona.</li><li><strong>Condición para avanzar:</strong> costos y capacidad acordados, evaluación de sesgos y supervisión humana.</li></ol>
+<div class="panel"><h3>Evidencia disponible</h3><p>Tablas, modelo, pruebas y documentación permanecen versionados en GitHub.</p>
+<div class="actions"><a class="button" href="https://github.com/nfmanios-debug/machine_learning_1/tree/main/Proyecto_Final/despliegue" target="_blank" rel="noopener">Abrir repositorio ↗</a><a class="button secondary" href="notebook.html" target="_blank" rel="noopener">Notebook completo ↗</a></div>
+<div id="app-link"></div><p class="small">El HTML incluye inferencia local real de la regresión exportada. Los gráficos de evaluación se reconstruyen con resultados guardados; no reentrenan Python.</p>
+<p class="small">Fuente: Secretaría Distrital de Salud / VESPA. Atribución CC BY 4.0 según ficha nacional. <a href="https://github.com/nfmanios-debug/machine_learning_1/blob/main/Proyecto_Final/ficha_datos.md" target="_blank" rel="noopener">Ficha y licencia</a>.</p></div></div>
+<div class="warning">Alcohol es una etiqueta simulada. No usar este prototipo para asignar recursos, negar atención o clasificar personas reales.</div>
+</section>
+</main>
+<footer><div class="nav"><button id="prev" class="secondary" aria-label="Diapositiva anterior">←</button><span class="counter" id="counter">01 / 08</span><button id="next" aria-label="Diapositiva siguiente">→</button><select id="jump" aria-label="Ir a sección"></select></div><span class="small footer-note">← → para navegar · HTML sin dependencias externas</span></footer>
+<div class="progress" id="progress"></div>
+<script id="payload" type="application/json">__PAYLOAD__</script>
+<script id="model-engine">
+/* Motor portable: misma normalización, one-hot y coeficientes que el Pipeline Python. */
+function predictPortable(input, model) {
+  let z = model.intercepto;
+  for (const [col, weights] of Object.entries(model.pesos_categoricos)) {
+    const raw = input[col];
+    let text = raw == null ? 'Desconocido' : String(raw).trim();
+    if (model.marcadores.includes(text.toLowerCase())) text = 'Desconocido';
+    z += Object.prototype.hasOwnProperty.call(weights, text) ? weights[text] : 0;
+  }
+  for (const [col, weight] of Object.entries(model.pesos_binarios)) {
+    const text = String(input[col] == null ? '' : input[col]).trim().toUpperCase();
+    z += weight * (text === 'SI' ? 1 : text === 'NO' ? 0 : -1);
+  }
+  return 1 / (1 + Math.exp(-z));
+}
+</script>
+<script>
+'use strict';
+// Los datos se insertan al generar el HTML: no hay fetch, telemetría ni almacenamiento.
+const D = JSON.parse(document.getElementById('payload').textContent);
+const $ = (id) => document.getElementById(id);
+const fmt = (x, n=2) => Number(x).toLocaleString('es-CO', {minimumFractionDigits:n, maximumFractionDigits:n});
+const pct = x => fmt(100*x,1) + '%';
+const slides = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+slides.forEach((s,i) => {const op=document.createElement('option');op.value=i;op.textContent=s.dataset.title;$('jump').appendChild(op)});
+function showSlide(i) {
+  current = Math.max(0, Math.min(slides.length-1, i));
+  slides.forEach((s,j) => {s.hidden = j !== current});
+  $('counter').textContent = String(current+1).padStart(2,'0')+' / 08';
+  $('prev').disabled = current === 0; $('next').disabled = current === slides.length-1;
+  $('jump').value=current; $('progress').style.width=((current+1)/slides.length*100)+'%';
+  history.replaceState(null, '', '#'+(current+1)); window.scrollTo(0,0);
+}
+$('prev').onclick=()=>showSlide(current-1);$('next').onclick=()=>showSlide(current+1);
+$('jump').onchange=e=>showSlide(Number(e.target.value));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showSlide(Number(b.dataset.go)));
+document.addEventListener('keydown',e=>{
+  if (['INPUT','SELECT','TEXTAREA','BUTTON','SUMMARY'].includes(document.activeElement.tagName)) return;
+  if(e.key==='ArrowRight'){e.preventDefault();showSlide(current+1)}
+  if(e.key==='ArrowLeft'){e.preventDefault();showSlide(current-1)}
+});
+showSlide(Number(location.hash.slice(1) || 1)-1);
+// Crear elementos con textContent evita interpretar categorías de datos como HTML.
+function table(container, rows, columns) {
+  const t=document.createElement('table'), head=t.createTHead().insertRow();
+  columns.forEach(([key,label])=>{const th=document.createElement('th');th.textContent=label;head.appendChild(th)});
+  const body=t.createTBody(); rows.forEach(r=>{const tr=body.insertRow();columns.forEach(([key])=>{const td=tr.insertCell();td.textContent=typeof r[key]==='number'?fmt(r[key],Number.isInteger(r[key])?0:4):r[key]})});
+  container.replaceChildren(t);
+}
+function downloadCsv(rows, filename) {
+  const keys=Object.keys(rows[0]);const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
+  const csv='\ufeff'+[keys,...rows.map(r=>keys.map(k=>r[k]))].map(r=>r.map(quote).join(',')).join('\n');
+  const u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a');a.href=u;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+function svgElement(tag, attrs={}, text) {
+  const e=document.createElementNS('http://www.w3.org/2000/svg',tag);
+  Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e;
+}
+function bars(target, rows, labelKey, valueKey, sdKey) {
+  const w=700,left=230,right=105,line=32,height=rows.length*line+50;
+  const max=Math.max(...rows.map(r=>r[valueKey]+(sdKey?r[sdKey]:0)))*1.06 || 1;
+  const scale=(w-left-right)/max;
+  const svg=svgElement('svg',{viewBox:'0 0 '+w+' '+height,role:'img','aria-label':'Gráfico de barras: '+valueKey});
+  rows.forEach((r,i)=>{
+    const y=20+i*line,v=r[valueKey],end=left+v*scale;
+    svg.appendChild(svgElement('text',{x:left-12,y:y+16,'text-anchor':'end',fill:'#132f3b','font-size':13},r[labelKey]));
+    svg.appendChild(svgElement('rect',{x:left,y:y+2,width:v*scale,height:20,rx:2,fill:'#237f73'}));
+    if(sdKey){const sd=r[sdKey]*scale;svg.appendChild(svgElement('line',{x1:end-sd,x2:end+sd,y1:y+12,y2:y+12,stroke:'#132f3b','stroke-width':2}));[end-sd,end+sd].forEach(x=>svg.appendChild(svgElement('line',{x1:x,x2:x,y1:y+7,y2:y+17,stroke:'#132f3b'})))}
+    svg.appendChild(svgElement('text',{x:end+10+(sdKey?r[sdKey]*scale:0),y:y+16,fill:'#132f3b','font-size':13},fmt(v,Number.isInteger(v)?0:4)));
+  });
+  svg.appendChild(svgElement('text',{x:left,y:height-5,fill:'#526870','font-size':12},'0 · '+(sdKey?'Costo medio; barras de error = desviación entre folds':'Número de filas')));
+  target.replaceChildren(svg);
+}
+function refreshData() {
+  table($('data-table'),D.agregados[$('group').value],[['categoria','Categoría'],['registros','Filas']]);
+  $('data-chart').innerHTML='<div class="empty">Pulsa «Generar gráfico» para visualizar la tabla seleccionada.</div>';
+}
+$('group').onchange=refreshData;
+$('play-data').onclick=()=>bars($('data-chart'),D.agregados[$('group').value],'categoria','registros');
+$('download-data').onclick=()=>downloadCsv(D.agregados[$('group').value],'registros_agregados.csv');
+$('play-models').onclick=()=>bars($('models-chart'),D.resultados.comparacion_cv,'modelo','costo_cv','sd_costo');
+$('download-models').onclick=()=>downloadCsv(D.resultados.comparacion_cv,'comparacion_cv.csv');
+// La curva usa solo la reserva de selección; el test queda fijo.
+function refreshThreshold() {
+  const threshold=Number($('threshold').value);
+  const r=D.curva.reduce((a,b)=>Math.abs(a.umbral-threshold)<Math.abs(b.umbral-threshold)?a:b);
+  $('threshold-value').textContent=fmt(threshold);$('val-recall').textContent=pct(r.sensibilidad);
+  $('val-alerts').textContent=pct(r.fraccion_alertas);$('val-cost').textContent=fmt(r.costo,4);
+  const w=620,h=230,l=50,b=35,t=15,max=Math.max(...D.curva.map(x=>x.costo))*1.05;
+  const x=v=>l+v*(w-l-15),y=v=>h-b-v/max*(h-t-b);
+  const svg=svgElement('svg',{viewBox:'0 0 '+w+' '+h,role:'img','aria-label':'Costo de validación frente al umbral'});
+  [0,max/2,max].forEach(v=>{svg.appendChild(svgElement('line',{x1:l,x2:w-15,y1:y(v),y2:y(v),stroke:'#d6dfd8'}));svg.appendChild(svgElement('text',{x:l-8,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'#526870'},fmt(v,2)))});
+  svg.appendChild(svgElement('polyline',{points:D.curva.map(r=>x(r.umbral)+','+y(r.costo)).join(' '),fill:'none',stroke:'#237f73','stroke-width':3}));
+  svg.appendChild(svgElement('line',{x1:x(threshold),x2:x(threshold),y1:t,y2:h-b,stroke:'#a64e21','stroke-dasharray':'5 4'}));
+  [0,.25,.5,.75,1].forEach(v=>svg.appendChild(svgElement('text',{x:x(v),y:h-12,'text-anchor':'middle','font-size':12,fill:'#526870'},fmt(v))));
+  $('threshold-chart').replaceChildren(svg);
+}
+$('threshold').oninput=refreshThreshold;refreshThreshold();
+// Formulario: valores ficticios, normalización idéntica al artefacto exportado.
+D.modelo.ejemplos.forEach((e,i)=>{const op=document.createElement('option');op.value=i;op.textContent=e.nombre;$('example').appendChild(op)});
+function buildFields() {
+  const base=D.modelo.ejemplos[Number($('example').value)].valores;
+  $('main-fields').replaceChildren();$('other-fields').replaceChildren();
+  Object.keys(base).forEach(col=>{
+    const block=document.createElement('div'),label=document.createElement('label'),select=document.createElement('select');
+    label.textContent=D.modelo.nombres[col];label.htmlFor=col;select.id=col;select.name=col;
+    const cats=D.modelo.pesos_categoricos[col];
+    const opts=cats?Array.from(new Set([...Object.keys(cats),'Desconocido'])).sort():['NO','SI','Desconocido'];
+    opts.forEach(v=>{const op=document.createElement('option');op.value=v;op.textContent=v;select.appendChild(op)});
+    select.value=base[col];block.append(label,select);
+    (['SEXO','CURSO_DE_VIDA'].includes(col)||col.startsWith('SITIO')?$('main-fields'):$('other-fields')).appendChild(block);
+    select.onchange=()=>{$('prediction-result').innerHTML='<p>Entradas modificadas</p><b>—</b><p class="small">Vuelve a ejecutar para actualizar el resultado.</p>'};
+  });
+  $('prediction-result').innerHTML='<p>Resultado del modelo</p><b>—</b><p class="small">Pulsa ejecutar para calcular una nueva probabilidad.</p>';
+}
+$('example').onchange=buildFields;buildFields();
+$('prediction-form').onsubmit=e=>{
+  e.preventDefault();const input=Object.fromEntries(new FormData(e.target));const p=predictPortable(input,D.modelo);
+  const title=document.createElement('p');title.textContent='P(Alcohol simulado)';
+  const num=document.createElement('b');num.textContent=pct(p);
+  const category=document.createElement('p');category.className='class';category.textContent=p>=D.modelo.umbral?'Alcohol simulado':'Otras SPA simuladas';
+  const meter=document.createElement('meter');meter.min=0;meter.max=1;meter.value=p;meter.setAttribute('aria-label','Probabilidad de Alcohol simulado');
+  const note=document.createElement('p');note.className='small';note.textContent='Calculado ahora · umbral fijo '+fmt(D.modelo.umbral)+'. No es certeza clínica.';
+  $('prediction-result').replaceChildren(title,num,category,meter,note);
+};
+if(D.streamlit_url) {
+  const a=document.createElement('a');a.href=D.streamlit_url;a.target='_blank';a.rel='noopener';a.className='button';a.textContent='Abrir aplicación Streamlit ↗';$('app-link').appendChild(a);
+} else {
+  const p=document.createElement('p');p.className='small';p.textContent='Streamlit: aplicación lista en el repositorio; URL pública pendiente de activación de la cuenta. La demostración HTML funciona aquí.';$('app-link').appendChild(p);
+}
+</script>
+</body></html>
+
